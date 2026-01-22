@@ -1,0 +1,176 @@
+/* ===== MODAL GLASS STYLE ===== */
+.custom-modal {
+    display: none;
+}
+
+.custom-modal .modal-dialog {
+    max-height: 90vh;
+    margin: auto;
+}
+
+.custom-modal .modal-dialog-scrollable {
+    height: auto !important;
+    max-height: 50vh;
+}
+
+.custom-modal .modal-content {
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.custom-modal-body {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.custom-modal .modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - var(--bs-modal-margin) * 2);
+}
+
+.custom-modal .modal-form {
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.custom-modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 25px 30px;
+    border-bottom: none;
+    position: relative;
+}
+
+.custom-modal-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.custom-modal-header .modal-title {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+/* Body */
+.custom-modal-body {
+    padding: 35px 30px;
+}
+
+/* Footer */
+.custom-modal-footer {
+    background: #f8f9fa;
+    padding: 20px 30px;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Input */
+.custom-modal .form-control {
+    height: 48px;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.custom-modal .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    background: #fff;
+}
+
+/* Button gradient */
+.btn-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 28px;
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* Animation */
+.custom-modal.fade .modal-dialog {
+    transform: translateY(-20px);
+    transition: transform 0.3s ease-out;
+}
+
+.custom-modal.show .modal-dialog {
+    transform: translateY(0);
+}
+
+/* List wrapper */
+.reward-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Item */
+.reward-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reward-item:hover {
+    background: #f8f9ff;
+    border-color: #667eea;
+}
+
+/* Image */
+.reward-thumb img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Info */
+.reward-info {
+    flex: 1;
+}
+
+.reward-name {
+    font-weight: 600;
+    color: #111827;
+}
+
+.reward-type {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+
+

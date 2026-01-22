@@ -1,0 +1,386 @@
+.menu-arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.nav-link[aria-expanded="true"] .menu-arrow {
+    transform: rotate(180deg);
+}
+
+/* Reset padding/margin nested nav trong collapse */
+.sidebar .collapse .nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Giảm padding cho nav-link trong collapse */
+.sidebar .collapse .nav-link {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Nếu icon + text bị lệch, fix line-height */
+.sidebar .collapse .nav-link i {
+    line-height: 1;
+    min-width: 20px; /* căn icon đều */
+    margin-right: 0.5rem;
+}
+
+/* Fix overflow để collapse tính đúng chiều cao */
+.sidebar .collapse {
+    overflow: hidden;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes countUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(180deg);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+.animate-count-up {
+    animation: countUp 0.6s ease-out 0.4s both;
+}
+
+/* Card Hover Effects */
+.card-hover {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Gradient Cards */
+.gradient-card-blue {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+}
+
+.gradient-card-green {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    position: relative;
+}
+
+.gradient-card-orange {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    position: relative;
+}
+
+/* Icon Styles */
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.icon-circle:hover {
+    transform: scale(1.1) rotate(10deg);
+}
+
+.icon-symbol {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.icon-sm {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.icon-symbol-sm {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Floating Shapes */
+.floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 80px;
+    height: 80px;
+    top: -40px;
+    right: -40px;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 60px;
+    height: 60px;
+    bottom: -30px;
+    left: -30px;
+    animation-delay: 3s;
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.success {
+    background: #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.status-indicator.warning {
+    background: #ffaa00;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+}
+
+.status-indicator.info {
+    background: #00aaff;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+}
+
+/* Export Card Styles */
+.export-card {
+    transition: all 0.4s ease;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    backdrop-filter: blur(10px);
+}
+
+.export-card:hover {
+    background: linear-gradient(145deg, #ffffff 0%, #f1f3f4 100%);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.export-bg-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, transparent 100%);
+    border-radius: 50%;
+    transform: translate(30px, -30px);
+}
+
+/* Button Styles */
+.btn-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-gradient-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.btn-gradient-primary:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-gradient-primary:hover:before {
+    left: 100%;
+}
+
+.export-btn {
+    position: relative;
+    z-index: 1;
+}
+
+.export-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.export-btn .spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.5rem;
+}
+
+/* Notification Styles */
+.alert.position-fixed {
+    animation: slideInRight 0.3s ease-out;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Utility Classes */
+.bg-opacity-20 {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.text-dark {
+    color: #2d3436 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon-symbol {
+        font-size: 1.5rem;
+    }
+
+    .card-hover:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+}
+
+@media (max-width: 576px) {
+    .h3 {
+        font-size: 1.5rem;
+    }
+
+    .h4 {
+        font-size: 1.25rem;
+    }
+
+    .icon-circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .icon-symbol {
+        font-size: 1.25rem;
+    }
+}

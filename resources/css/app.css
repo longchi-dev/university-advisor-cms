@@ -1,0 +1,8 @@
+/* Custom dashboard design */
+@import "./dashboard/dashboard.css";
+@import "./component/style.css";
+@import "./component/modal.css";
+
+/*@tailwind base;*/
+/*@tailwind components;*/
+/*@tailwind utilities;*/
