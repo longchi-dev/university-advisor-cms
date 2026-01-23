@@ -33,58 +33,58 @@ class SettingController extends Controller
         AppSetting::setValue('prompt', 'validate', $validated['validate']);
 
         // Chuẩn bị cho bulk update keyword_labels
-        $caseLabel = '';
-        $caseLabelEn = '';
-        $ids = [];
+//        $caseLabel = '';
+//        $caseLabelEn = '';
+//        $ids = [];
+//
+//        // Chuẩn bị cho bulk update themes
+//        $caseTheme = '';
+//        $themeIds = [];
+//
+//        foreach ($validated['labels'] as $id => $value) {
+//            // keyword_labels
+//            $ids[] = $id;
+//            $caseLabel   .= "WHEN {$id} THEN '" . addslashes($value['label']) . "' ";
+//            $caseLabelEn .= "WHEN {$id} THEN '" . addslashes($value['label_en']) . "' ";
+//
+//            // themes
+//            if (!empty($value['themes'])) {
+//                foreach ($value['themes'] as $themeId => $themeContent) {
+//                    $themeIds[] = $themeId;
+//                    $caseTheme .= "WHEN {$themeId} THEN '" . addslashes($themeContent) . "' ";
+//                }
+//            }
+//        }
 
-        // Chuẩn bị cho bulk update themes
-        $caseTheme = '';
-        $themeIds = [];
-
-        foreach ($validated['labels'] as $id => $value) {
-            // keyword_labels
-            $ids[] = $id;
-            $caseLabel   .= "WHEN {$id} THEN '" . addslashes($value['label']) . "' ";
-            $caseLabelEn .= "WHEN {$id} THEN '" . addslashes($value['label_en']) . "' ";
-
-            // themes
-            if (!empty($value['themes'])) {
-                foreach ($value['themes'] as $themeId => $themeContent) {
-                    $themeIds[] = $themeId;
-                    $caseTheme .= "WHEN {$themeId} THEN '" . addslashes($themeContent) . "' ";
-                }
-            }
-        }
-
-        $sqlLabels = null;
-        if ($ids) {
-            $idList = implode(',', $ids);
-            $sqlLabels = "
-            UPDATE keyword_labels
-            SET label = CASE id {$caseLabel} END,
-                label_en = CASE id {$caseLabelEn} END
-            WHERE id IN ($idList)
-        ";
-        }
-
-        $sqlThemes = null;
-        if ($themeIds) {
-            $themeIdList = implode(',', $themeIds);
-            $sqlThemes = "
-            UPDATE themes
-            SET content = CASE id {$caseTheme} END
-            WHERE id IN ($themeIdList)
-        ";
-        }
-
-        DB::transaction(function () use ($sqlLabels, $sqlThemes) {
-            if ($sqlLabels) {
-                DB::statement($sqlLabels);
-            }
-            if ($sqlThemes) {
-                DB::statement($sqlThemes);
-            }
-        });
+//        $sqlLabels = null;
+//        if ($ids) {
+//            $idList = implode(',', $ids);
+//            $sqlLabels = "
+//            UPDATE keyword_labels
+//            SET label = CASE id {$caseLabel} END,
+//                label_en = CASE id {$caseLabelEn} END
+//            WHERE id IN ($idList)
+//        ";
+//        }
+//
+//        $sqlThemes = null;
+//        if ($themeIds) {
+//            $themeIdList = implode(',', $themeIds);
+//            $sqlThemes = "
+//            UPDATE themes
+//            SET content = CASE id {$caseTheme} END
+//            WHERE id IN ($themeIdList)
+//        ";
+//        }
+//
+//        DB::transaction(function () use ($sqlLabels, $sqlThemes) {
+//            if ($sqlLabels) {
+//                DB::statement($sqlLabels);
+//            }
+//            if ($sqlThemes) {
+//                DB::statement($sqlThemes);
+//            }
+//        });
 
         return redirect()->back()->with('success', 'Cập nhật thành công!');
     }

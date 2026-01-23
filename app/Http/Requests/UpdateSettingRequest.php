@@ -24,11 +24,11 @@ class UpdateSettingRequest extends FormRequest
         return [
             'image'       => 'required|string|max:5000',
             'validate'    => 'required|string|max:1000',
-            'labels'      => 'required|array',
-            'labels.*.label'    => 'required|string|max:255',
-            'labels.*.label_en' => 'required|string|max:255',
-            'labels.*.themes'   => 'required|array|size:2',
-            'labels.*.themes.*' => 'required|string|max:255',
+//            'labels'      => 'required|array',
+//            'labels.*.label'    => 'required|string|max:255',
+//            'labels.*.label_en' => 'required|string|max:255',
+//            'labels.*.themes'   => 'required|array|size:2',
+//            'labels.*.themes.*' => 'required|string|max:255',
         ];
     }
 }

@@ -169,7 +169,7 @@
                                 </td>
 
                                 {{-- Ngày tạo --}}
-                                <td>{{ \Carbon\Carbon::parse($llmLog->created_at)->format('d/m/Y H:i') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($llmLog->created_at)->format('d-m-Y H:i:s') }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -180,23 +180,4 @@
         </div>
     </div>
 @endsection
-@push('js')
-    <script>
-        $(document).ready(function () {
-            // Initialize datepicker if available
-            if ($.fn.datepicker) {
-                $('.datepicker').datepicker({
-                    format: 'dd/mm/yyyy',
-                    autoclose: true,
-                    todayHighlight: true
-                });
-            }
-
-            $('.show_modal').on('click', function () {
-                $('.modal-backdrop').remove();
-                $('body').removeClass('modal-open');
-            });
-        });
-    </script>
-@endpush
 

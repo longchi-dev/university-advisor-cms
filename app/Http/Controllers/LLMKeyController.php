@@ -9,10 +9,27 @@ use Illuminate\View\View;
 
 class LLMKeyController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $keys = LlmKey::query()->orderBy('id', 'desc')->paginate(10);
-        return view('llm_keys.index', compact('keys'));
+        $data = [];
+        $keyName = $request->get('key_name');
+        $lastUsedDate = $request->get('last_used_at');
+
+        $keys = LlmKey::query()
+            ->when($keyName, function ($q) use ($keyName) {
+                $q->where('name', 'like', "%{$keyName}%");
+            })
+            ->when($lastUsedDate, function ($q) use ($lastUsedDate) {
+                $q->whereDate('last_used_at', $lastUsedDate);
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        $data['keys'] = $keys;
+        $data['keyName'] = $keyName;
+        $data['lastUsedDate'] = $lastUsedDate;
+
+        return view('llm_keys.index', $data);
     }
 
     public function create(): View
@@ -29,7 +46,6 @@ class LLMKeyController extends Controller
         ]);
 
         LlmKey::query()->create($data);
-
         return redirect()->route('llm-keys.index')->with('success', 'Key created successfully.');
     }
 
