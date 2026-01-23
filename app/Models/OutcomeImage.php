@@ -57,6 +57,6 @@ class OutcomeImage extends Model
 
     public function gamingSession(): BelongsTo
     {
-        return $this->belongsTo(GamingSession::class);
+        return $this->belongsTo(GamingSession::class, 'gaming_session_id');
     }
 }

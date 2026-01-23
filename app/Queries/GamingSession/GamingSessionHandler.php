@@ -24,7 +24,7 @@ class GamingSessionHandler
     {
         $gamingSessionQuery = GamingSession::query()
             ->whereBetween(DB::raw('DATE(finished_at)'), [$query->fromDate, $query->toDate])
-            ->orderByDesc('finished_at');
+            ->orderBy('finished_at', 'desc');
 
         $paginator = $gamingSessionQuery->paginate(
             $query->perPage, [
@@ -58,7 +58,7 @@ class GamingSessionHandler
                 'terms_of_use' =>  $upload?->terms_of_use ? "Chấp nhận" : "Từ chối",
                 'upload' => ImageHelper::getImageUrl($upload->path),
                 'outcome_chosen' => $chosenImageUrl,
-                'image_has_frame' => $chosenImageUrl,
+                'image_has_frame' => $outcome?->image_has_frame ? ImageHelper::getImageUrl($outcome->image_has_frame) : null,
                 'started_at' => $gamingSession->created_at?->format('d-m-Y H:i:s') ?? null,
                 'finished_at' => $gamingSession->finished_at->format('d-m-Y H:i:s') ?? null,
                 'share_facebook_at' => $outcome?->share_facebook_at?->format('d-m-Y H:i:s') ?? null,

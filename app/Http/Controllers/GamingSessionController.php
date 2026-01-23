@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use App\Contracts\Repositories\IGamingSessionRepository;
 use App\Contracts\Repositories\IOutcomeImageRepository;
 use App\Contracts\Repositories\IUploadImageRepository;
+use App\Enums\JobStatus;
 use App\Helpers\ImageHelper;
+use App\Jobs\ExportGamingSessionCsvJob;
+use App\Models\ExportJob;
 use App\Queries\GamingSession\GamingSessionHandler;
 use App\Queries\GamingSession\GamingSessionQuery;
+use App\Services\Export\GamingSessionExportService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class GamingSessionController extends Controller
@@ -57,6 +64,71 @@ class GamingSessionController extends Controller
             'uploadUrl' => ImageHelper::getImageUrl($upload->path),
             'hasFrameUrl' => $outCome?->image_has_frame ? ImageHelper::getImageUrl($outCome?->image_has_frame): null,
             'playerChooseImage' => $outCome?->player_choose_image?->value,
+        ]);
+    }
+
+    public function export(Request $request): JsonResponse
+    {
+        $fromDate = $request->get('from_date');
+        $toDate = $request->get('to_date');
+
+        $fromDateFormat = Carbon::parse($fromDate)->toDateString();
+        $toDateFormat = Carbon::parse($toDate)->toDateString();
+
+        $jobId = uniqid();
+        $from = Carbon::parse($fromDate)->format('d-m');
+        $to   = Carbon::parse($toDate)->format('d-m');
+        $now  = Carbon::now()->format('dmY');
+        $job = ExportJob::query()->create([
+            'job_id' => $jobId,
+            'status' => JobStatus::PENDING,
+            'total'  => 0,
+            'processed' => 0,
+            'file_path' => "exports/gaming_sessions_{$from}_{$to}_{$now}_{$jobId}.csv",
+        ]);
+
+        Cache::put(config('cache_key.export_key') . ":{$jobId}", [
+            'job_id' => $jobId,
+            'status' => $job->status,
+            'total' => 0,
+            'processed' => 0,
+            'file_path' => $job->file_path
+        ], 3600);
+
+        $total = app(GamingSessionExportService::class)->getGamingSessionTotalCount(
+            fromDate: $fromDateFormat,
+            toDate: $toDateFormat,
+        );
+
+        Storage::disk('public')->makeDirectory('exports');
+        $fullPath = Storage::disk('public')->path($job->file_path);
+        $handle = fopen($fullPath, 'w');
+
+        fputcsv($handle, [
+            'Tên người chơi',
+            'Điều khoản',
+            'Ảnh gốc',
+            'Ảnh đã tạo',
+            'Ảnh có khung',
+            'Thời gian bắt đầu',
+            'Thời gian kết thúc',
+            'Thời gian chia sẻ'
+        ]);
+
+        fclose($handle);
+
+        dispatch(new ExportGamingSessionCsvJob(
+            jobId: $jobId,
+            total: $total,
+            fromDate: $fromDateFormat,
+            toDate: $toDateFormat
+        ));
+
+        return response()->json([
+            'job_id' => $jobId,
+            'status' => JobStatus::PENDING,
+            'file_path' => $job->file_path,
+            'file_url' => url('/storage/' . $job->file_path)
         ]);
     }
 }

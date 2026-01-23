@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'export_key' => 'export_user_utm',
+    'export_key' => 'export_data',
 ];

@@ -74,7 +74,7 @@ class GamingSession extends Model
 
     public function outcomeImage(): HasOne
     {
-        return $this->hasOne(OutcomeImage::class);
+        return $this->hasOne(OutcomeImage::class, 'gaming_session_id');
     }
 
     public function finish(): void
