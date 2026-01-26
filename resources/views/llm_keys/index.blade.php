@@ -5,7 +5,7 @@
             <div class="position-relative">
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="m-0">LLM Keys</h2>
+                        <h2 class="m-0">Image Keys</h2>
                         <div class="d-flex align-items-center gap-2">
                             <form id="filter-llm-keys" method="GET" class="d-flex gap-2 align-items-center mb-0 w-100">
                                 <div>
