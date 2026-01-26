@@ -179,9 +179,9 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <x-pagination :data="$llmLogs" />
                 </div>
             </div>
+            <x-pagination :data="$llmLogs" />
         </div>
     </div>
 @endsection

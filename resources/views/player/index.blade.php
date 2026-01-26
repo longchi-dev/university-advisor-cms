@@ -94,7 +94,6 @@
                 </div>
             </div>
             <x-pagination :data="$players"/>
-
         </div>
     </div>
 @endsection
