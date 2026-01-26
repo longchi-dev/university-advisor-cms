@@ -127,6 +127,11 @@
                                         </button>
                                     @endif
 
+                                    @php
+                                        $response = $llmLog->response;
+                                        $json = json_decode($response, true);
+                                    @endphp
+
                                     {{-- Modal hiển thị full Response --}}
                                     <div class="modal fade" id="responseModal{{ $llmLog->id }}" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -136,7 +141,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body" style="white-space: pre-wrap;">
-                                                    {{ $llmLog->response }}
+                                                    {{ $json? json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $response }}
                                                 </div>
                                             </div>
                                         </div>
