@@ -48,7 +48,7 @@
                                 <th>Địa chỉ IP</th>
                                 <th>Điều khoản</th>
                                 <th>Ảnh gốc</th>
-                                <th>Ảnh đã tạo</th>
+{{--                                <th>Ảnh đã chọn</th>--}}
                                 <th>Ảnh có khung</th>
                                 <th>Thời gian bắt đầu</th>
                                 <th>Thời gian kết thúc</th>
@@ -75,14 +75,14 @@
                                     </td>
 
                                     {{-- Ảnh đã chọn từ outcome --}}
-                                    <td>
-                                        <a target="_blank" href="{{ $gamingSession['outcome_chosen'] }}">
-                                            <img src="{{ $gamingSession['outcome_chosen'] }}"
-                                                 alt="Ảnh đã tạo"
-                                                 class="img-thumbnail rounded border-success"
-                                                 style="width: 100px; height: auto; object-fit: cover;">
-                                        </a>
-                                    </td>
+{{--                                    <td>--}}
+{{--                                        <a target="_blank" href="{{ $gamingSession['outcome_chosen'] }}">--}}
+{{--                                            <img src="{{ $gamingSession['outcome_chosen'] }}"--}}
+{{--                                                 alt="Ảnh đã tạo"--}}
+{{--                                                 class="img-thumbnail rounded border-success"--}}
+{{--                                                 style="width: 100px; height: auto; object-fit: cover;">--}}
+{{--                                        </a>--}}
+{{--                                    </td>--}}
 
                                     {{-- Ảnh có khung --}}
                                     <td>

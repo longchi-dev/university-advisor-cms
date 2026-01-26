@@ -18,8 +18,8 @@ class GamingSessionExportService
         $query = GamingSession::query()
             ->with([
                 'player:id,name',
-                'player.uploadImage:uuid,image_id',
-                'outcomeImage:id,player_id,gaming_session_id',
+                'player.uploadImage:uuid,image_id,path,terms_of_use',
+                'outcomeImage',
             ])
             ->when($fromDate && $toDate, function ($q) use ($fromDate, $toDate) {
                 $q->whereBetween(DB::raw('DATE(finished_at)'), [$fromDate, $toDate]);
@@ -29,21 +29,14 @@ class GamingSessionExportService
             ->limit($limit)
             ->get()
             ->map(function (GamingSession $gamingSession) {
-                $chosenImageUrl = null;
                 $outcome = $gamingSession->outcomeImage;
-                if ($outcome?->player_choose_image) {
-                    $field = $outcome->player_choose_image->value;
-
-                    if (!empty($outcome->{$field})) {
-                        $chosenImageUrl = ImageHelper::getImageUrl($outcome->{$field});
-                    }
-                }
 
                 return [
                     'player_name' => $gamingSession->player?->name,
                     'terms_of_use' =>  $gamingSession->player?->uploadImage?->terms_of_use ? "Chấp nhận" : "Từ chối",
                     'upload' => ImageHelper::getImageUrl($gamingSession->player?->uploadImage?->path),
-                    'outcome_chosen' => $chosenImageUrl,
+                    'outcome_image_1' => $outcome?->image_1 ? ImageHelper::getImageUrl($outcome->image_1) : null,
+                    'outcome_image_2' => $outcome?->image_2 ? ImageHelper::getImageUrl($outcome->image_2) : null,
                     'image_has_frame' => $outcome?->image_has_frame ? ImageHelper::getImageUrl($outcome->image_has_frame) : null,
                     'started_at' => $gamingSession->created_at?->format('d-m-Y H:i:s'),
                     'finished_at' => $gamingSession->finished_at?->format('d-m-Y H:i:s'),
