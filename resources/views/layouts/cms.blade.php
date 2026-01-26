@@ -73,7 +73,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('llm-keys.index') }}">
                     <i class="fa fa-key"></i>
-                    <span class="menu-title">LLM Key</span>
+                    <span class="menu-title">Image Key</span>
                 </a>
             </li>
             <li class="nav-item">
