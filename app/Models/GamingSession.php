@@ -72,6 +72,12 @@ class GamingSession extends Model
         return $this->belongsTo(Player::class);
     }
 
+    public function uploadImage(): BelongsTo
+    {
+        return $this->belongsTo(UploadImage::class, 'image_id');
+    }
+
+
     public function outcomeImage(): HasOne
     {
         return $this->hasOne(OutcomeImage::class, 'gaming_session_id');

@@ -88,7 +88,7 @@
                                     <td>
                                         <a target="_blank" href="{{ $gamingSession['image_has_frame'] }}">
                                             <img src="{{ $gamingSession['image_has_frame'] }}"
-                                                 alt="Ảnh đã tạo"
+                                                 alt="Ảnh có khung"
                                                  class="img-thumbnail rounded border-success"
                                                  style="width: 100px; height: auto; object-fit: cover;">
                                         </a>
