@@ -80,6 +80,21 @@
                                             data-bs-target="#promptModal{{ $llmLog->id }}">
                                         Xem
                                     </button>
+
+                                    {{-- Modal hiển thị full Prompt --}}
+                                    <div class="modal fade" id="promptModal{{ $llmLog->id }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Prompt (ID: {{ $llmLog->id }})</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body" style="white-space: pre-wrap;">
+                                                    {{ $llmLog->prompt }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
 
                                 {{-- Image URL --}}
@@ -111,6 +126,21 @@
                                             Xem
                                         </button>
                                     @endif
+
+                                    {{-- Modal hiển thị full Response --}}
+                                    <div class="modal fade" id="responseModal{{ $llmLog->id }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Response (ID: {{ $llmLog->id }})</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body" style="white-space: pre-wrap;">
+                                                    {{ $llmLog->response }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
 
                                 {{-- Request At --}}
@@ -144,39 +174,6 @@
                         @endforeach
                         </tbody>
                     </table>
-
-                    @foreach($llmLogs as $llmLog)
-                        {{-- Prompt Modal --}}
-                        <div class="modal fade" id="promptModal{{ $llmLog->id }}" tabindex="-1">
-                            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Prompt (ID: {{ $llmLog->id }})</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body" style="white-space: pre-wrap;">
-                                        {{ $llmLog->prompt }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Response Modal --}}
-                        <div class="modal fade" id="responseModal{{ $llmLog->id }}" tabindex="-1">
-                            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Response (ID: {{ $llmLog->id }})</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body" style="white-space: pre-wrap;">
-                                        {{ $llmLog->response }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-
                     <x-pagination :data="$llmLogs" />
                 </div>
             </div>
@@ -184,3 +181,11 @@
     </div>
 @endsection
 
+@push('js')
+    <script>
+        document.addEventListener('show.bs.modal', function (event) {
+            const modal = event.target;
+            document.body.appendChild(modal);
+        });
+    </script>
+@endpush
