@@ -28,11 +28,11 @@ class InitUserCommand extends Command
     public function handle(): int
     {
 
-        $name = $this->ask('Enter the admin name');
-        $email = $this->ask('Enter the email');
+        $name = $this->ask('Enter the user name');
+        $email = $this->ask('Enter the user email');
         $password = $this->secret('Enter the user password');
         $confirmPassword = $this->secret('Confirm the user password');
-        $role = $this->choice('Choose the user role', UserRoleEnum::values());
+//        $role = $this->choice('Choose the user role', UserRoleEnum::values());
         // Kiểm tra xem mật khẩu có khớp không
         if ($password !== $confirmPassword) {
             $this->error('Passwords do not match. Please try again.');
@@ -46,7 +46,7 @@ class InitUserCommand extends Command
                 return static::SUCCESS;
             }
             $user = User::make($name, $email, $password);
-            $user->role = $role;
+//            $user->role = $role;
             $user->save();
 
             $this->info('User has been created successfully.');
