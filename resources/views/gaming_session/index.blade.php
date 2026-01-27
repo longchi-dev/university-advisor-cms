@@ -44,7 +44,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Tên người chơi</th>
+{{--                                <th>Tên người chơi</th>--}}
                                 <th>Địa chỉ IP</th>
                                 <th>Điều khoản</th>
                                 <th>Ảnh gốc</th>
@@ -60,7 +60,7 @@
                             @foreach($gamingSessions as $key => $gamingSession)
                                 <tr>
                                     <td>{{ $gamingSessions->firstItem() + $key }}</td>
-                                    <th>{{ $gamingSession['player_name'] }}</th>
+{{--                                    <th>{{ $gamingSession['player_name'] }}</th>--}}
                                     <td>{{ $gamingSession['ip_address'] }}</td>
                                     <td>{{ $gamingSession['terms_of_use'] }}</td>
 

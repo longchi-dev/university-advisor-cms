@@ -65,7 +65,7 @@ class ExportGamingSessionCsvJob implements ShouldQueue
 
             foreach ($data as $row) {
                 fputcsv($handle, [
-                    $row['player_name'],
+//                    $row['player_name'],
                     $row['terms_of_use'],
                     $row['upload'],
                     $row['outcome_image_1'],
