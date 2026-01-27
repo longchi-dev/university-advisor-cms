@@ -128,7 +128,10 @@
 
                                     @php
                                         $response = $llmLog->response;
-                                        $json = json_decode($response, true);
+                                        $decoded = json_decode($response, true);
+                                        if (is_null($decoded)) {
+                                            $decoded = json_decode(stripslashes($response), true);
+                                        }
                                     @endphp
 
                                     {{-- Modal hiển thị full Response --}}
@@ -140,7 +143,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    {{ $json? json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $response }}
+                                                    <pre>{{ $decoded ? json_encode($decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $response }}</pre>
                                                 </div>
                                             </div>
                                         </div>
