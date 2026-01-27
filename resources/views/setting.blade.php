@@ -16,7 +16,7 @@
                     @csrf
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5>Prompt image</h5>
+                            <h5>Prompt image (<strong style="color: red">Không sửa field trong dấu {}</strong>)</h5>
                             <div class="row mb-4">
                                 <div class="form-group">
                                     <textarea name="image" class="form-control form-control-lg" rows="15">{{ $promptImage }}</textarea>
