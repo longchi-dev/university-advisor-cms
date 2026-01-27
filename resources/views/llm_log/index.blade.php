@@ -88,7 +88,7 @@
                                                     <h5 class="modal-title">Prompt (ID: {{ $llmLog->id }})</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-                                                <div class="modal-body" style="white-space: pre-wrap;">
+                                                <div class="modal-body">
                                                     {{ $llmLog->prompt }}
                                                 </div>
                                             </div>
@@ -139,7 +139,7 @@
                                                     <h5 class="modal-title">Response (ID: {{ $llmLog->id }})</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-                                                <div class="modal-body" style="white-space: pre-wrap;">
+                                                <div class="modal-body">
                                                     {{ $json? json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $response }}
                                                 </div>
                                             </div>
