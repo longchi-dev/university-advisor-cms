@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property string $name
+ * @property string $model
  * @property string $api_key
  * @property bool $is_active
  * @property int $used_tokens

@@ -41,6 +41,7 @@ class LLMKeyController extends Controller
     {
         $data = $request->validate([
             'name' => 'nullable|string|max:255',
+            'model' => 'required|string|max:255',
             'api_key' => 'required|string|unique:llm_keys,api_key',
             'quota_limit' => 'nullable|integer|min:0',
         ]);
@@ -58,12 +59,30 @@ class LLMKeyController extends Controller
     {
         $data = $request->validate([
             'name' => 'nullable|string|max:255',
+            'model' => 'nullable|string|max:255',
             'api_key' => 'required|string|unique:llm_keys,api_key,' . $llmKey->id,
             'is_active' => 'boolean',
             'quota_limit' => 'nullable|integer|min:0',
         ]);
 
-        $llmKey->update($data);
+        if ($data['name'] &&($data['name'] || $llmKey->name)) {
+            $llmKey->name = $data['name'];
+        }
+        if ($data['model'] &&($data['model'] || $llmKey->model)) {
+            $llmKey->model = $data['model'];
+        }
+        if ($data['api_key'] &&($data['api_key'] || $llmKey->api_key)) {
+            $llmKey->api_key = $data['api_key'];
+        }
+        if ($data['is_active'] &&($data['is_active'] || $llmKey->is_active)) {
+            $llmKey->is_active = $data['is_active'];
+        }
+        if ($data['quota_limit'] &&($data['quota_limit'] || $llmKey->quota_limit)) {
+            $llmKey->quota_limit = $data['quota_limit'];
+        }
+        if ($llmKey->isDirty()){
+            $llmKey->save();
+        }
 
         return redirect()->route('llm-keys.index')->with('success', 'Key updated successfully.');
     }

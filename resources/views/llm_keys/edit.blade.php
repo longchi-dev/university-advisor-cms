@@ -32,6 +32,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Model</label>
+                    <input type="text" name="model" class="form-control" value="{{ old('model', $llmKey->model) }}">
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">API Key</label>
                     <input type="text" name="api_key" class="form-control" value="{{ old('api_key', $llmKey->api_key) }}" required>
                 </div>

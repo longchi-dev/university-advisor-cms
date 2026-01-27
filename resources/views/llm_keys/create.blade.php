@@ -31,6 +31,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Model</label>
+                    <input type="text" name="model" class="form-control">
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">API Key</label>
                     <input type="text" name="api_key" class="form-control" required>
                 </div>

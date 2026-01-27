@@ -88,6 +88,12 @@
                     <span class="menu-title">Cài đặt</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('prompt-randoms.index') }}">
+                    <i class="fa fa-cog"></i>
+                    <span class="menu-title">Prompt random</span>
+                </a>
+            </li>
         </ul>
     </nav>
 

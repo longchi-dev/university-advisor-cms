@@ -46,6 +46,7 @@
                     <tr>
                         <th>#</th>
                         <th>Tên</th>
+                        <th>Model</th>
                         <th>API Key</th>
                         <th>Active</th>
                         <th>Used Tokens</th>
@@ -59,6 +60,7 @@
                         <tr>
                             <td>{{ $key->id }}</td>
                             <td>{{ $key->name }}</td>
+                            <td>{{ $key->model }}</td>
                             <td><code>{{ $key->api_key }}</code></td>
                             <td>
                                 <label class="badge badge-{{ $key->is_active ? 'success' : 'secondary' }}">
