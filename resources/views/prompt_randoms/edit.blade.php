@@ -1,19 +1,40 @@
 @extends('layouts.cms')
 @section('content')
-    <h4 class="mb-3">Edit Prompt Random</h4>
+    @php
+        $breadcrumbItems = [
+            [
+                'label' => 'Prompt Randoms',
+                'href' => route('prompt-randoms.index', ['group' => $promptRandom->group]),
+            ],
+            [
+                'label' => 'Cập nhật prompt',
+            ],
+        ];
+    @endphp
 
-    <form method="POST"
-          action="{{ route('prompt-randoms.update', $promptRandom) }}">
-        @csrf
-        @method('PUT')
+    <div class="card">
+        <div class="card-body">
+            <x-nav-breadcrumb :items="$breadcrumbItems"/>
+            <div class="position-relative">
+                <div class="mb-3 mt-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="m-0">Cập nhật prompt</h2>
+                    </div>
+                </div>
+            </div>
 
-        @include('prompt_randoms.form', ['item' => $promptRandom])
+            <form action="{{ route('prompt-randoms.update', $promptRandom) }}" method="POST">
+                @csrf @method('PUT')
+                @include('prompt_randoms.form', ['item' => $promptRandom])
 
-        <button class="btn btn-primary">Update</button>
-        <a href="{{ route('prompt-randoms.index', ['group' => $promptRandom->group]) }}"
-           class="btn btn-secondary">
-            Cancel
-        </a>
-    </form>
+                <div class="d-flex justify-content-start mt-4">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="mdi mdi-content-save"></i>
+                        <span class="ms-1">Cập nhật key</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 

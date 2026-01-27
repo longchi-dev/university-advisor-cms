@@ -16,7 +16,7 @@
 </div>
 
 <div class="form-group">
-    <label>Value</label>
+    <label class="form-label">Value</label>
     <input
         type="text"
         name="value"
@@ -26,23 +26,21 @@
     >
 </div>
 
-<div class="form-row">
-    <div class="form-group col-md-3">
-        <label>Weight</label>
-        <input
-            type="number"
-            name="weight"
-            class="form-control"
-            min="1"
-            value="{{ $currentWeight }}"
-        >
-    </div>
+<div class="form-group">
+    <label class="form-label">Weight</label>
+    <input
+        type="number"
+        name="weight"
+        class="form-control"
+        min="1"
+        value="{{ $currentWeight }}"
+    >
+</div>
 
-    <div class="form-group col-md-3">
-        <label>Active</label>
-        <select name="is_active" class="form-control">
-            <option value="1" {{ $currentActive == 1 ? 'selected' : '' }}>Yes</option>
-            <option value="0" {{ $currentActive == 0 ? 'selected' : '' }}>No</option>
-        </select>
-    </div>
+<div class="form-group">
+    <label class="form-label">Active</label>
+    <select name="is_active" class="form-control">
+        <option value="1" @if($currentActive) selected @endif>Yes</option>
+        <option value="0" @if(!$currentActive) selected @endif>No</option>
+    </select>
 </div>
