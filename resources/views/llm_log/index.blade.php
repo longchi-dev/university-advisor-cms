@@ -88,7 +88,7 @@
                                                     <h5 class="modal-title">Prompt (ID: {{ $llmLog->id }})</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body" style="white-space: pre-line;">
                                                     {{ $llmLog->prompt }}
                                                 </div>
                                             </div>
