@@ -44,11 +44,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-{{--                                <th>Tên người chơi</th>--}}
+                                {{-- <th>Tên người chơi</th> --}}
                                 <th>Địa chỉ IP</th>
-                                <th>Điều khoản</th>
+                                {{-- <th>Điều khoản</th> --}}
                                 <th>Ảnh gốc</th>
-{{--                                <th>Ảnh đã chọn</th>--}}
+                                {{-- <th>Ảnh đã chọn</th> --}}
                                 <th>Ảnh có khung</th>
                                 <th>Thời gian bắt đầu</th>
                                 <th>Thời gian kết thúc</th>
@@ -61,7 +61,7 @@
                                     <td>{{ $gamingSessions->firstItem() + $key }}</td>
 {{--                                    <th>{{ $gamingSession['player_name'] }}</th>--}}
                                     <td>{{ $gamingSession['ip_address'] }}</td>
-                                    <td>{{ $gamingSession['terms_of_use'] }}</td>
+{{--                                    <td>{{ $gamingSession['terms_of_use'] }}</td>--}}
 
                                     {{-- Ảnh upload gốc --}}
                                     <td>
