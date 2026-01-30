@@ -109,75 +109,75 @@
             </div>
         </div>
 
-        <div class="row mb-4">
-            <div class="col-md-6 mb-3">
-                <div class="export-card p-4 rounded border h-100 position-relative overflow-hidden">
-                    <div class="d-flex align-items-start mb-3">
-                        <div class="icon-sm bg-gradient-primary rounded me-3">
-                            <span class="icon-symbol-sm">📊</span>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-1 font-weight-bold">Activity Log Data</h6>
-                            <p class="text-muted small mb-0">Export complete activity log data.
-                            </p>
-                        </div>
-                    </div>
+{{--        <div class="row mb-4">--}}
+{{--            <div class="col-md-6 mb-3">--}}
+{{--                <div class="export-card p-4 rounded border h-100 position-relative overflow-hidden">--}}
+{{--                    <div class="d-flex align-items-start mb-3">--}}
+{{--                        <div class="icon-sm bg-gradient-primary rounded me-3">--}}
+{{--                            <span class="icon-symbol-sm">📊</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="flex-grow-1">--}}
+{{--                            <h6 class="mb-1 font-weight-bold">Activity Log Data</h6>--}}
+{{--                            <p class="text-muted small mb-0">Export complete activity log data.--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                    <button type="button" class="btn btn-gradient-primary btn-sm w-100 export-btn mb-3"
-                            onclick="startExport()">
-                        <span class="me-2">📥</span>
-                        <span class="export-text">Download CSV</span>
-                        <div class="spinner-border spinner-border-sm d-none" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </button>
+{{--                    <button type="button" class="btn btn-gradient-primary btn-sm w-100 export-btn mb-3"--}}
+{{--                            onclick="startExport()">--}}
+{{--                        <span class="me-2">📥</span>--}}
+{{--                        <span class="export-text">Download CSV</span>--}}
+{{--                        <div class="spinner-border spinner-border-sm d-none" role="status">--}}
+{{--                            <span class="visually-hidden">Loading...</span>--}}
+{{--                        </div>--}}
+{{--                    </button>--}}
 
-                    <button type="button" class="btn btn-gradient-primary btn-sm w-100 export-excel-btn"
-                            onclick="startExportExcel()">
-                        <span class="me-2">📥</span>
-                        <span class="export-excel-text">Download Excel</span>
-                        <div class="spinner-excel-border spinner-border-sm d-none" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </button>
-                    <div class="export-bg-pattern"></div>
-                </div>
-            </div>
+{{--                    <button type="button" class="btn btn-gradient-primary btn-sm w-100 export-excel-btn"--}}
+{{--                            onclick="startExportExcel()">--}}
+{{--                        <span class="me-2">📥</span>--}}
+{{--                        <span class="export-excel-text">Download Excel</span>--}}
+{{--                        <div class="spinner-excel-border spinner-border-sm d-none" role="status">--}}
+{{--                            <span class="visually-hidden">Loading...</span>--}}
+{{--                        </div>--}}
+{{--                    </button>--}}
+{{--                    <div class="export-bg-pattern"></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div class="col-md-6 mb-3">
-                <div class="export-card p-4 rounded border h-100 position-relative overflow-hidden">
-                    <div class="d-flex align-items-start mb-3">
-                        <div class="icon-sm bg-gradient-primary rounded me-3">
-                            <span class="icon-symbol-sm">📊</span>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="mb-1 font-weight-bold">User Profile Data</h6>
-                            <p class="text-muted small mb-0">Export user profile data.
-                            </p>
-                        </div>
-                    </div>
+{{--            <div class="col-md-6 mb-3">--}}
+{{--                <div class="export-card p-4 rounded border h-100 position-relative overflow-hidden">--}}
+{{--                    <div class="d-flex align-items-start mb-3">--}}
+{{--                        <div class="icon-sm bg-gradient-primary rounded me-3">--}}
+{{--                            <span class="icon-symbol-sm">📊</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="flex-grow-1">--}}
+{{--                            <h6 class="mb-1 font-weight-bold">User Profile Data</h6>--}}
+{{--                            <p class="text-muted small mb-0">Export user profile data.--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                    <button type="button" class="btn btn-gradient-primary btn-sm w-100 export-profile-btn mb-3"
-                            onclick="startExportProfile()">
-                        <span class="me-2">📥</span>
-                        <span class="export-profile-text">Download CSV</span>
-                        <div class="spinner-profile-border spinner-border-sm d-none" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </button>
+{{--                    <button type="button" class="btn btn-gradient-primary btn-sm w-100 export-profile-btn mb-3"--}}
+{{--                            onclick="startExportProfile()">--}}
+{{--                        <span class="me-2">📥</span>--}}
+{{--                        <span class="export-profile-text">Download CSV</span>--}}
+{{--                        <div class="spinner-profile-border spinner-border-sm d-none" role="status">--}}
+{{--                            <span class="visually-hidden">Loading...</span>--}}
+{{--                        </div>--}}
+{{--                    </button>--}}
 
-                    <button type="button" class="btn btn-gradient-primary btn-sm w-100 export-excel-profile-btn"
-                            onclick="startExportExcelProfile()">
-                        <span class="me-2">📥</span>
-                        <span class="export-excel-profile-text">Download Excel</span>
-                        <div class="spinner-excel-profile-border spinner-border-sm d-none" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </button>
-                    <div class="export-bg-pattern"></div>
-                </div>
-            </div>
-        </div>
+{{--                    <button type="button" class="btn btn-gradient-primary btn-sm w-100 export-excel-profile-btn"--}}
+{{--                            onclick="startExportExcelProfile()">--}}
+{{--                        <span class="me-2">📥</span>--}}
+{{--                        <span class="export-excel-profile-text">Download Excel</span>--}}
+{{--                        <div class="spinner-excel-profile-border spinner-border-sm d-none" role="status">--}}
+{{--                            <span class="visually-hidden">Loading...</span>--}}
+{{--                        </div>--}}
+{{--                    </button>--}}
+{{--                    <div class="export-bg-pattern"></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
 {{--        <div class="card">--}}
 {{--            <div class="card-header border-0 shadow-lg gradient-card-blue text-white p-3 ps-4">--}}
