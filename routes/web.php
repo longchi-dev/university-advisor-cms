@@ -23,9 +23,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/players', [PlayerController::class, 'index'])->name('player.index');
 
-//    Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
-//    Route::patch('/settings', [SettingController::class, 'update'])->name('setting.update');
-//
+    Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
+    Route::patch('/settings', [SettingController::class, 'update'])->name('setting.update');
+
 //    Route::resource('prompt-randoms', PromptRandomController::class);
 //
 //    Route::get('/llm_log', [LlmLogController::class, 'index'])->name('llm_log.index');

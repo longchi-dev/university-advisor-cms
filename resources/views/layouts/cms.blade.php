@@ -82,12 +82,12 @@
 {{--                    <span class="menu-title">LLM Log</span>--}}
 {{--                </a>--}}
 {{--            </li>--}}
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link" href="{{ route('setting.index') }}">--}}
-{{--                    <i class="fa fa-cog"></i>--}}
-{{--                    <span class="menu-title">Cài đặt</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('setting.index') }}">
+                    <i class="fa fa-cog"></i>
+                    <span class="menu-title">Cài đặt</span>
+                </a>
+            </li>
 {{--            <li class="nav-item">--}}
 {{--                <a class="nav-link" href="{{ route('prompt-randoms.index') }}">--}}
 {{--                    <i class="fa fa-cog"></i>--}}
