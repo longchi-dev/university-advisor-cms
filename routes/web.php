@@ -28,8 +28,8 @@ Route::middleware(['auth'])->group(function () {
 
 //    Route::resource('prompt-randoms', PromptRandomController::class);
 //
-//    Route::get('/llm_log', [LlmLogController::class, 'index'])->name('llm_log.index');
-//    Route::resource('/llm-keys', LLMKeyController::class);
+    Route::get('/llm_log', [LlmLogController::class, 'index'])->name('llm_log.index');
+    Route::resource('/llm-keys', LLMKeyController::class);
 
 //    Route::middleware('role:' .UserRoleEnum::SETTING->value)->group(function () {
 //        Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');

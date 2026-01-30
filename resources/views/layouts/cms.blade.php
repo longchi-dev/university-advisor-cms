@@ -76,12 +76,12 @@
 {{--                    <span class="menu-title">Image Key</span>--}}
 {{--                </a>--}}
 {{--            </li>--}}
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link" href="{{ route('llm_log.index') }}">--}}
-{{--                    <i class="fa fa-refresh"></i>--}}
-{{--                    <span class="menu-title">LLM Log</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('llm_log.index') }}">
+                    <i class="fa fa-refresh"></i>
+                    <span class="menu-title">LLM Log</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('setting.index') }}">
                     <i class="fa fa-cog"></i>
