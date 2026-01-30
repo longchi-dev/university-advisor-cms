@@ -37,6 +37,7 @@ class ExportGamingSessionCsvJob implements ShouldQueue
         $this->limit = config('export.gaming_session_export_limit');
         $this->fromDate = $fromDate;
         $this->toDate = $toDate;
+        $this->onQueue('export');
     }
 
     /**
