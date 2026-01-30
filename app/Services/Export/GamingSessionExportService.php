@@ -33,11 +33,11 @@ class GamingSessionExportService
                 $outcome = $gamingSession->outcomeImage;
 
                 return [
-                    'player_name' => $gamingSession->player?->name,
-                    'terms_of_use' =>  $upload?->terms_of_use ? "Chấp nhận" : "Từ chối",
+//                    'player_name' => $gamingSession->player?->name,
+//                    'terms_of_use' =>  $upload?->terms_of_use ? "Chấp nhận" : "Từ chối",
                     'upload' => $upload?->path ? ImageHelper::getImageUrl($upload->path) : null,
-                    'outcome_image_1' => $outcome?->image_1 ? ImageHelper::getImageUrl($outcome->image_1) : null,
-                    'outcome_image_2' => $outcome?->image_2 ? ImageHelper::getImageUrl($outcome->image_2) : null,
+//                    'outcome_image_1' => $outcome?->image_1 ? ImageHelper::getImageUrl($outcome->image_1) : null,
+//                    'outcome_image_2' => $outcome?->image_2 ? ImageHelper::getImageUrl($outcome->image_2) : null,
                     'image_has_frame' => $outcome?->image_has_frame ? ImageHelper::getImageUrl($outcome->image_has_frame) : null,
                     'started_at' => $gamingSession->created_at?->format('d-m-Y H:i:s'),
                     'finished_at' => $gamingSession->finished_at?->format('d-m-Y H:i:s'),

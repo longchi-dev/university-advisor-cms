@@ -105,11 +105,7 @@ class GamingSessionController extends Controller
         $handle = fopen($fullPath, 'w');
 
         fputcsv($handle, [
-//            'Tên người chơi',
-            'Điều khoản',
             'Ảnh gốc',
-            'Ảnh 1',
-            'Ảnh 2',
             'Ảnh có khung',
             'Thời gian bắt đầu',
             'Thời gian kết thúc',
