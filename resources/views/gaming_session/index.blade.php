@@ -53,7 +53,6 @@
                                 <th>Thời gian bắt đầu</th>
                                 <th>Thời gian kết thúc</th>
                                 <th>Thời gian chia sẻ</th>
-                                <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,16 +101,16 @@
                                     <td>{{ $gamingSession['share_facebook_at'] }}</td>
 
                                     {{-- Hành động --}}
-                                    <td>
-                                        <div class="d-flex gap-1">
-                                            <a href="{{ route('gaming-session.show', ['sessionId' => $gamingSession['id']]) }}"
-                                               class="btn btn-primary btn-icon d-flex align-items-center justify-content-center me-1"
-                                               style="width: 36px; height: 36px;"
-                                               title="Xem chi tiết">
-                                                <i class="mdi mdi-eye"></i>
-                                            </a>
-                                        </div>
-                                    </td>
+{{--                                    <td>--}}
+{{--                                        <div class="d-flex gap-1">--}}
+{{--                                            <a href="{{ route('gaming-session.show', ['sessionId' => $gamingSession['id']]) }}"--}}
+{{--                                               class="btn btn-primary btn-icon d-flex align-items-center justify-content-center me-1"--}}
+{{--                                               style="width: 36px; height: 36px;"--}}
+{{--                                               title="Xem chi tiết">--}}
+{{--                                                <i class="mdi mdi-eye"></i>--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
                                 </tr>
                             @endforeach
                         </tbody>

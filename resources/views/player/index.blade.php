@@ -51,7 +51,6 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Tên người chơi</th>
                                 <th>URL</th>
                                 <th>Lần đầu đăng nhập</th>
                             </tr>
@@ -60,7 +59,6 @@
                             @foreach($players as $key => $player)
                                 <tr>
                                     <td>{{ $players->firstItem() + $key }}</td>
-                                    <td>{{ $player['player_name'] }}</td>
                                     <td>
                                         @if (!empty($player['full_url']))
                                             @php

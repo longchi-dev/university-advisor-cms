@@ -70,30 +70,30 @@
                     <span class="menu-title">Người chơi</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('llm-keys.index') }}">
-                    <i class="fa fa-key"></i>
-                    <span class="menu-title">Image Key</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('llm_log.index') }}">
-                    <i class="fa fa-refresh"></i>
-                    <span class="menu-title">LLM Log</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('setting.index') }}">
-                    <i class="fa fa-cog"></i>
-                    <span class="menu-title">Cài đặt</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('prompt-randoms.index') }}">
-                    <i class="fa fa-cog"></i>
-                    <span class="menu-title">Prompt random</span>
-                </a>
-            </li>
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="{{ route('llm-keys.index') }}">--}}
+{{--                    <i class="fa fa-key"></i>--}}
+{{--                    <span class="menu-title">Image Key</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="{{ route('llm_log.index') }}">--}}
+{{--                    <i class="fa fa-refresh"></i>--}}
+{{--                    <span class="menu-title">LLM Log</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="{{ route('setting.index') }}">--}}
+{{--                    <i class="fa fa-cog"></i>--}}
+{{--                    <span class="menu-title">Cài đặt</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="{{ route('prompt-randoms.index') }}">--}}
+{{--                    <i class="fa fa-cog"></i>--}}
+{{--                    <span class="menu-title">Prompt random</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
         </ul>
     </nav>
 
