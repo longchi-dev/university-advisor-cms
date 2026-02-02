@@ -10,6 +10,7 @@ class PlayerQuery
     public function __construct(
         public int $page,
         public int $perPage,
+        public ?string $playerUrl = null,
         public ?string $fromDate = null,
         public ?string $toDate = null,
     ) {

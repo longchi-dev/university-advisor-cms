@@ -10,6 +10,7 @@ class GamingSessionQuery
     public function __construct(
         public int $page,
         public int $perPage,
+        public ?string $isShared = null,
         public ?string $fromDate = null,
         public ?string $toDate = null,
     ) {

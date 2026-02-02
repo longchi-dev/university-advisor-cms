@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Repository\IRewardRepository;
 use App\Queries\Player\PlayerHandler;
 use App\Queries\Player\PlayerQuery;
-use App\Services\Operations\Reward\RewardService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -24,9 +22,12 @@ class PlayerController extends Controller
         $fromDateCarbon = Carbon::parse($fromDate);
         $toDateCarbon = Carbon::parse($toDate);
 
+        $playerUrl = $request->get('player_url');
+
         $playerQuery = new PlayerQuery(
             page: $page,
             perPage: $perPage,
+            playerUrl: $playerUrl,
             fromDate: $fromDateCarbon->toDateString(),
             toDate: $toDateCarbon->toDateString(),
         );
@@ -34,6 +35,7 @@ class PlayerController extends Controller
         $players = app(PlayerHandler::class)->execute($playerQuery);
 
         $data['players'] = $players;
+        $data['playerUrls'] = app(PlayerHandler::class)->getPlayerUrls($playerQuery);
         $data['fromDate'] = $fromDate;
         $data['toDate'] = $toDate;
 

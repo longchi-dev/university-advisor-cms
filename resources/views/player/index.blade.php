@@ -9,6 +9,17 @@
                         <div class="d-flex align-items-center gap-2">
                             <form id="filter-players" method="GET" class="d-flex gap-2 align-items-center mb-0 w-100">
                                 <div class="form-group d-flex gap-2 flex-fill mb-0">
+                                    <select name="player_url" id="player_url" class="form-control flex-grow-1">
+                                        <option value="">Tất cả url</option>
+                                        @foreach($playerUrls as $url)
+                                            <option value="{{ $url }}" {{ request('player_url') == $url ? 'selected' : '' }}>
+                                                {{ Str::limit($url, 60) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group d-flex gap-2 flex-fill mb-0">
                                     <input type="text" name="from_date" id="from_date"
                                            class="form-control datepicker" placeholder="Từ ngày"
                                            value="{{ request('from_date', now()->format('d-m-Y')) }}">

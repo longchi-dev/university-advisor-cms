@@ -26,6 +26,18 @@ class GamingSessionHandler
             ->whereBetween(DB::raw('DATE(finished_at)'), [$query->fromDate, $query->toDate])
             ->orderBy('finished_at', 'desc');
 
+        if ($query->isShared != null) {
+            $gamingSessionQuery->whereHas('outcomeImage', function ($q) use ($query) {
+                if ($query->isShared == '1') {
+                    $q->whereNotNull('share_facebook_at');
+                }
+
+                if ($query->isShared == '0') {
+                    $q->whereNull('share_facebook_at');
+                }
+            });
+        }
+
         $paginator = $gamingSessionQuery->paginate(
             $query->perPage, [
                 'uuid',
@@ -62,6 +74,7 @@ class GamingSessionHandler
                 'started_at' => $gamingSession->created_at?->format('d-m-Y H:i:s') ?? null,
                 'finished_at' => $gamingSession->finished_at->format('d-m-Y H:i:s') ?? null,
                 'share_facebook_at' => $outcome?->share_facebook_at?->format('d-m-Y H:i:s') ?? null,
+                'is_shared' => !is_null($outcome?->share_facebook_at),
             ];
         });
 

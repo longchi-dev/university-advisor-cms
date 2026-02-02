@@ -32,9 +32,12 @@ class GamingSessionController extends Controller
         $fromDateCarbon = Carbon::parse($fromDate);
         $toDateCarbon = Carbon::parse($toDate);
 
+        $isShared = $request->get('is_shared');
+
         $gamingSessionQuery = new GamingSessionQuery(
             page: $page,
             perPage: $perPage,
+            isShared: $isShared,
             fromDate: $fromDateCarbon->toDateString(),
             toDate: $toDateCarbon->toDateString(),
         );
