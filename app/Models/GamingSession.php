@@ -13,12 +13,12 @@ use Illuminate\Support\Carbon;
  * @property string $uuid The UUID of the gaming session.
  * @property string $player_id The UUID of the associated player.
  * @property string $image_id The UUID of the associated image.
+ * @property int $theme_id
  * @property Carbon|null $finished_at The timestamp when the session finished.
  * @property string|null $full_url The full URL associated with the session.
  * @property string|null $ip_address The IP address of the client.
  * @property string|null $browser The browser information of the client.
- * @property FrameEnum|null $frame The browser information of the client.
- * @property array $keywords The JSON array of keywords.
+ * @property int $ref_gaming_session_id
  * @property Carbon $created_at The timestamp when the session was created.
  * @property Carbon $updated_at The timestamp when the session was last updated.
  */
@@ -35,24 +35,20 @@ class GamingSession extends Model
         'full_url',
         'ip_address',
         'browser',
-        'keywords',
-        'frame',
-        'ref_gaming_session_id'
+        'ref_gaming_session_id',
     ];
 
     protected $casts = [
         'finished_at' => 'datetime',
-        'keywords' => 'array',
-        'frame' => FrameEnum::class,
     ];
 
     public static function make(
         string $playerId,
         string $imageId,
         string $fullUrl,
-        ?array $keywords,
         ?string $ipAddress = null,
         ?string $browser = null,
+        ?string $refGamingSessionId = null,
         ?\DateTimeInterface $finishedAt = null,
     ): static
     {
@@ -60,10 +56,10 @@ class GamingSession extends Model
             'player_id' => $playerId,
             'image_id' => $imageId,
             'full_url' => $fullUrl,
-            'keywords' => $keywords,
             'finished_at' => $finishedAt,
             'ip_address' => $ipAddress,
             'browser' => $browser,
+            'ref_gaming_session_id' => $refGamingSessionId
         ]);
     }
 

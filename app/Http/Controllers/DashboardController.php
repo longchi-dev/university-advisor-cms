@@ -26,7 +26,11 @@ class DashboardController extends Controller
 
         $data['totalPlayers'] = Player::query()->count();
         $data['totalGamingSessions'] = GamingSession::query()->whereNotNull('finished_at')->count();
-        $data['totalGamingSessionsShareFacebook'] = OutcomeImage::query()->whereNotNull('share_facebook_at')->count();
+
+        // count share
+        $data['totalShareFacebook'] = OutcomeImage::query()->whereNotNull('share_fb_at')->count();
+        $data['totalShareInstagram'] = OutcomeImage::query()->whereNotNull('share_ig_at')->count();
+        $data['totalSave'] = OutcomeImage::query()->whereNotNull('save_at')->count();
 
         return view('dashboard', $data);
     }

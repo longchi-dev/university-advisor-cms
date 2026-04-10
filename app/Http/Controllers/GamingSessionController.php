@@ -9,6 +9,7 @@ use App\Enums\JobStatus;
 use App\Helpers\ImageHelper;
 use App\Jobs\ExportGamingSessionCsvJob;
 use App\Models\ExportJob;
+use App\Models\Theme;
 use App\Queries\GamingSession\GamingSessionHandler;
 use App\Queries\GamingSession\GamingSessionQuery;
 use App\Services\Export\GamingSessionExportService;
@@ -32,12 +33,18 @@ class GamingSessionController extends Controller
         $fromDateCarbon = Carbon::parse($fromDate);
         $toDateCarbon = Carbon::parse($toDate);
 
-        $isShared = $request->get('is_shared');
+        $themeId = $request->get('theme_id');
+        $isSharedFb = $request->get('is_shared_fb');
+        $isSharedIg = $request->get('is_shared_ig');
+        $isSaved = $request->get('is_saved');
 
         $gamingSessionQuery = new GamingSessionQuery(
             page: $page,
             perPage: $perPage,
-            isShared: $isShared,
+            themeId: $themeId,
+            isSharedFb: $isSharedFb,
+            isSharedIg: $isSharedIg,
+            isSaved: $isSaved,
             fromDate: $fromDateCarbon->toDateString(),
             toDate: $toDateCarbon->toDateString(),
         );
@@ -45,6 +52,7 @@ class GamingSessionController extends Controller
         $gamingSessions = app(GamingSessionHandler::class)->execute($gamingSessionQuery);
 
         $data['gamingSessions'] = $gamingSessions;
+        $data['themes'] = Theme::query()->get();
         $data['fromDate'] = $fromDate;
         $data['toDate'] = $toDate;
         return view('gaming_session.index', $data);

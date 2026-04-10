@@ -20,19 +20,30 @@ class PlayerHandler
     public function execute(PlayerQuery $query): LengthAwarePaginator
     {
         $playerQuery = Player::query()
+            ->with('quizAnswers')
             ->whereBetween(DB::raw('DATE(created_at)'), [$query->fromDate, $query->toDate])
-            ->when($query->playerUrl, function ($q) use ($query) {
-                $q->where('full_url', $query->playerUrl);
-            })
             ->orderByDesc('created_at');
+
 
         $paginator = $playerQuery->paginate($query->perPage, ['*'], 'page', $query->page);
 
         $paginator->getCollection()->transform(function (Player $player) {
+            $answers = $player->quizAnswers
+                ->groupBy('quiz_id')
+                ->map(function ($items) {
+                    return $items->pluck('label_snapshot')->implode(', ');
+                });
+
             return [
-                'full_url' => $player->full_url,
-                'player_name' => $player->name,
-                'created_at' => $player->created_at
+                'last_name' => $player->last_name,
+                'first_name' => $player->first_name,
+                'email' => $player->email,
+                'phone' => $player->phone,
+                'terms_of_use' => $player->confirmed_terms_at ? "Chấp nhận" : "Từ chối",
+                'user_type' => $player->last_return_at ? 'Người chơi cũ' : 'Người chơi mới',
+                'answers' => $answers,
+                'confirmed_terms_at' => $player->confirmed_terms_at?->format('d-m-Y H:i:s') ?? null,
+                'created_at' => $player->created_at,
             ];
         });
 

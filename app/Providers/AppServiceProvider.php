@@ -7,6 +7,7 @@ use App\Contracts\Repositories\IKeywordLabelRepository;
 use App\Contracts\Repositories\IKeywordRepository;
 use App\Contracts\Repositories\IOutcomeImageRepository;
 use App\Contracts\Repositories\IPlayerRepository;
+use App\Contracts\Repositories\IThemeRepository;
 use App\Contracts\Repositories\IUploadImageRepository;
 use App\Models\User;
 use App\Repositories\GamingSessionRepository;
@@ -14,6 +15,7 @@ use App\Repositories\KeywordLabelRepository;
 use App\Repositories\KeywordRepository;
 use App\Repositories\OutcomeImageRepository;
 use App\Repositories\PlayerRepository;
+use App\Repositories\ThemeRepository;
 use App\Repositories\UploadImageRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -31,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IKeywordLabelRepository::class, KeywordLabelRepository::class);
         $this->app->bind(IUploadImageRepository::class, UploadImageRepository::class);
         $this->app->bind(IOutcomeImageRepository::class, OutcomeImageRepository::class);
+        $this->app->bind(IThemeRepository::class, ThemeRepository::class);
     }
 
     /**

@@ -85,13 +85,36 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-xs font-weight-bold text-white text-uppercase mb-1 opacity-90">
-                                    Facebook Shares
+                                    Shares & Saves
                                 </div>
-                                <div class="h4 mb-0 font-weight-bold text-white animate-count-up">
-                                    {{ number_format($totalGamingSessionsShareFacebook) }}
+                                <div class="row text-white">
+
+                                    {{-- Facebook --}}
+                                    <div class="col-4 text-center border-end">
+                                        <div class="text-xs opacity-80">Facebook</div>
+                                        <div class="h5 mb-0 font-weight-bold animate-count-up">
+                                            {{ number_format($totalShareFacebook) }}
+                                        </div>
+                                    </div>
+
+                                    {{-- Instagram --}}
+                                    <div class="col-4 text-center border-end">
+                                        <div class="text-xs opacity-80">Instagram</div>
+                                        <div class="h5 mb-0 font-weight-bold animate-count-up">
+                                            {{ number_format($totalShareInstagram) }}
+                                        </div>
+                                    </div>
+
+                                    {{-- Save --}}
+                                    <div class="col-4 text-center">
+                                        <div class="text-xs opacity-80">Save</div>
+                                        <div class="h5 mb-0 font-weight-bold animate-count-up">
+                                            {{ number_format($totalSave) }}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text-xs text-white mt-1 opacity-80">
-                                    <span class="status-indicator info"></span> Total Facebook shares
+                                    <span class="status-indicator info"></span> Total interactions
                                 </div>
                             </div>
                             <div class="col-auto">

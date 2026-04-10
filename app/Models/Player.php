@@ -10,12 +10,18 @@ use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- * @property string $uuid The UUID of the player.
- * @property string $full_url The UUID of the player.
- * @property string|null $name The name of the player.
- * @property bool $is_banned Indicates if the player is banned.
- * @property Carbon $created_at The timestamp when the player was created.
- * @property Carbon $updated_at The timestamp when the player was last updated.
+ * @property string $uuid
+ * @property string $last_name
+ * @property string $first_name
+ * @property string $email
+ * @property string $phone
+ * @property string $full_url
+ * @property bool $is_banned
+ * @property array $terms_of_use
+ * @property Carbon $confirmed_terms_at
+ * @property Carbon $last_return_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Player extends Model
 {
@@ -24,24 +30,35 @@ class Player extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'last_name',
+        'first_name',
+        'email',
+        'phone',
         'full_url',
-        'name',
         'is_banned',
+        'confirmed_terms_at',
+        'last_return_at',
+        'terms_of_use',
     ];
 
     protected $casts = [
         'is_banned' => 'boolean',
+        'confirmed_terms_at' => 'datetime',
+        'last_return_at' => 'datetime',
+        'terms_of_use' => 'array'
     ];
 
     public static function make(
-        string $fullUrl, ?ImageChooseEnum $playerChooseImage = null, ?string $name = null, ?\DateTimeInterface $shareFinishAt = null
+        string $lastName, string $firstName, string $email, string $phone, string $fullUrl, array $termsOfUse
     ): static
     {
         return new static([
+            'last_name' => $lastName,
+            'first_name' => $firstName,
+            'email' => $email,
+            'phone' => $phone,
             'full_url' => $fullUrl,
-            'player_choose_image' => $playerChooseImage,
-            'share_facebook_at' => $shareFinishAt,
-            'name' => $name,
+            'terms_of_use' => $termsOfUse
         ]);
     }
 
@@ -58,6 +75,11 @@ class Player extends Model
     public function outcomeImages(): HasMany
     {
         return $this->hasMany(OutcomeImage::class);
+    }
+
+    public function quizAnswers(): HasMany
+    {
+        return $this->hasMany(QuizAnswer::class, 'player_id', 'uuid');
     }
 
     public function getJWTIdentifier()

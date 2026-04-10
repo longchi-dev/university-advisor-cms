@@ -17,17 +17,17 @@ class PlayerController extends Controller
 
         $data = [];
 
+        $phonesInput = $request->input('phone', '');
+        $phones = array_filter(array_map('trim', explode(',', $phonesInput)));
+
         $fromDate = $request->get('from_date', date('d-m-Y'));
         $toDate = $request->get('to_date', date('d-m-Y'));
         $fromDateCarbon = Carbon::parse($fromDate);
         $toDateCarbon = Carbon::parse($toDate);
 
-        $playerUrl = $request->get('player_url');
-
         $playerQuery = new PlayerQuery(
             page: $page,
             perPage: $perPage,
-            playerUrl: $playerUrl,
             fromDate: $fromDateCarbon->toDateString(),
             toDate: $toDateCarbon->toDateString(),
         );
@@ -35,7 +35,7 @@ class PlayerController extends Controller
         $players = app(PlayerHandler::class)->execute($playerQuery);
 
         $data['players'] = $players;
-        $data['playerUrls'] = app(PlayerHandler::class)->getPlayerUrls($playerQuery);
+        $data['phones'] = !empty($phones) ? implode(', ', $phones) : '';
         $data['fromDate'] = $fromDate;
         $data['toDate'] = $toDate;
 

@@ -38,16 +38,16 @@
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Ảnh gốc</th>
-                            <th>Ảnh đã chọn</th>
-                            <th>Ảnh có khung</th>
-                            <th>Ngày</th>
+                            <th>Người chơi</th>
+                            <th>Full url</th>
+                            <th>Chủ đề</th>
+                            <th>Ảnh upload</th>
+                            <th>Ảnh outcome</th>
                             <th>Thời gian bắt đầu</th>
                             <th>Thời gian kết thúc</th>
-                            <th>Chia sẻ lúc</th>
-                            <th>Khung</th>
-                            <th>Điều khoản</th>
-                            <th>Từ khoá</th>
+                            <th>Chia sẻ fb lúc</th>
+                            <th>Chia sẻ ig lúc</th>
+                            <th>Lưu ảnh lúc</th>
                             <th>Hành động</th>
                         </tr>
                         </thead>
@@ -55,6 +55,25 @@
                         @foreach($gamingSessions as $key => $gamingSession)
                             <tr>
                                 <td>{{ $gamingSessions->firstItem() + $key }}</td>
+
+                                {{-- IP --}}
+                                <td>
+                                    {{ $gamingSession['ip_address'] }}
+                                </td>
+                                {{-- Người chơi --}}
+                                <td>
+                                    {{ $gamingSession['player_first_name'] }}
+                                </td>
+
+                                {{-- Full url --}}
+                                <td>
+                                    {{ $gamingSession['full_url'] }}
+                                </td>
+
+                                {{-- Theme lable --}}
+                                <td>
+                                    {{ $gamingSession['theme_label'] }}
+                                </td>
 
                                 {{-- Ảnh upload gốc --}}
                                 <td>
@@ -64,23 +83,13 @@
                                          style="width: 100px; height: auto; object-fit: cover;">
                                 </td>
 
-                                {{-- Ảnh đã chọn từ outcome --}}
-                                <td>
-                                    <img src="{{ $gamingSession['choose'] }}"
-                                         alt="Ảnh đã chọn"
-                                         class="img-thumbnail rounded border-success"
-                                         style="width: 100px; height: auto; object-fit: cover;">
-                                </td>
                                 {{-- Ảnh có khung--}}
                                 <td>
-                                    <img src="{{ $gamingSession['hasFrame'] }}"
+                                    <img src="{{ $gamingSession['image_has_frame'] }}"
                                          alt="Ảnh có khung"
                                          class="img-thumbnail rounded border-success"
                                          style="width: 100px; height: auto; object-fit: cover;">
                                 </td>
-
-                                {{-- Ngày tạo --}}
-                                <td>{{ \Carbon\Carbon::parse($gamingSession['date'])->format('d/m/Y') }}</td>
 
                                 {{-- Thời gian bắt đầu --}}
                                 <td>
@@ -97,24 +106,21 @@
                                 </td>
 
                                 <td>
-                                    {{ $gamingSession['share_facebook_at']
+                                    {{ $gamingSession['share_fb_at']
                                         ? \Carbon\Carbon::parse($gamingSession['share_facebook_at'])->format('d/m/Y H:i')
                                         : '-' }}
                                 </td>
 
                                 <td>
-                                    {{ $gamingSession['frame'] }}
+                                    {{ $gamingSession['share_ig_at']
+                                        ? \Carbon\Carbon::parse($gamingSession['share_ig_at'])->format('d/m/Y H:i')
+                                        : '-' }}
                                 </td>
 
                                 <td>
-                                    {{ $gamingSession['terms_of_use'] }}
-                                </td>
-
-                                {{-- Keywords --}}
-                                <td>
-                                        <div style="max-width: 200px; white-space: normal;">
-                                            {!! $gamingSession['keyword_label'] !!}
-                                        </div>
+                                    {{ $gamingSession['save_at']
+                                        ? \Carbon\Carbon::parse($gamingSession['save_at'])->format('d/m/Y H:i')
+                                        : '-' }}
                                 </td>
 
                                 {{-- Hành động --}}

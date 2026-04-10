@@ -6,43 +6,89 @@
                 <div class="mb-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <h2 class="m-0">Lượt chơi</h2>
-
                         <div class="d-flex align-items-center gap-2">
-                            <form id="filter-gaming-session" method="GET" class="d-flex gap-2 align-items-center mb-0 w-100">
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="form-group d-flex gap-2 flex-fill mb-0">
-                                        <select name="is_shared" id="is_shared" class="form-control flex-grow-1">
-                                            <option value="">Có share hình không?</option>
-                                            <option value="1" {{ request('is_shared') === '1' ? 'selected' : '' }}>Có</option>
-                                            <option value="0" {{ request('is_shared') === '0' ? 'selected' : '' }}>Không</option>
+                            {{-- Nút mở bộ lọc --}}
+                            <button class="btn btn-sm text-dark btn-outline-secondary d-flex align-items-center"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#filterCollapse"
+                                    aria-expanded="false"
+                                    aria-controls="filterCollapse">
+                                <span class="me-1">🎯</span> Bộ lọc
+                            </button>
+
+                            {{-- Nút Export --}}
+                            <button type="submit" class="btn btn-success btn-sm export-btn px-4"
+                                    onclick="startExport()">
+                                <span class="me-2">📥</span>
+                                <span class="export-text">Download</span>
+                                <div class="spinner-border spinner-border-sm d-none" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="collapse mt-3" id="filterCollapse">
+                        <form id="filter-gaming-session" class="p-3 rounded shadow-sm bg-light">
+                            {{-- Hàng 1 --}}
+                            <div class="flex-wrap gap-2 mb-3 w-100">
+                                {{-- Filter theo theme --}}
+                                <select name="theme_id" id="theme_id" class="form-control flex-grow-1 mb-3" style="min-width:180px;">
+                                    <option value="">Tất cả theme</option>
+                                    @foreach($themes as $theme)
+                                        <option value="{{ $theme->id }}" {{ request('theme_id') == $theme->id ? 'selected' : '' }}>
+                                            {{ $theme->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <div class="d-flex gap-2 mb-3 w-100">
+                                    <div class="form-group flex-fill mb-0">
+                                        <select name="is_shared_fb" id="is_shared_fb" class="form-control">
+                                            <option value="">Có share fb không?</option>
+                                            <option value="1" {{ request('is_shared_fb') === '1' ? 'selected' : '' }}>Có</option>
+                                            <option value="0" {{ request('is_shared_fb') === '0' ? 'selected' : '' }}>Không</option>
                                         </select>
                                     </div>
 
-                                    <div class="form-group d-flex gap-2 flex-fill mb-0">
-                                        <input type="text" name="from_date" id="from_date"
-                                               class="form-control datepicker" placeholder="Từ ngày"
-                                               value="{{ request('from_date', now()->format('d-m-Y')) }}">
-                                        <input type="text" name="to_date" id="to_date"
-                                               class="form-control datepicker" placeholder="Đến ngày"
-                                               value="{{ request('to_date', now()->format('d-m-Y')) }}">
+                                    <div class="form-group flex-fill mb-0">
+                                        <select name="is_shared_ig" id="is_shared_ig" class="form-control">
+                                            <option value="">Có share ig không?</option>
+                                            <option value="1" {{ request('is_shared_ig') === '1' ? 'selected' : '' }}>Có</option>
+                                            <option value="0" {{ request('is_shared_ig') === '0' ? 'selected' : '' }}>Không</option>
+                                        </select>
                                     </div>
 
-                                    <div class="input-group-append">
-                                        <button class="btn btn-sm btn-primary" type="submit">Tìm</button>
+                                    <div class="form-group flex-fill mb-0">
+                                        <select name="is_saved" id="is_saved" class="form-control">
+                                            <option value="">Có lưu ảnh không?</option>
+                                            <option value="1" {{ request('is_saved') === '1' ? 'selected' : '' }}>Có</option>
+                                            <option value="0" {{ request('is_saved') === '0' ? 'selected' : '' }}>Không</option>
+                                        </select>
                                     </div>
                                 </div>
+                            </div>
 
-                                {{-- Nút Export --}}
-                                <button type="button" class="btn btn-success btn-sm export-btn px-4" onclick="startExport()">
-                                    <span class="me-2">📥</span>
-                                    <span class="export-text">Download CSV</span>
-                                    <div class="spinner-border spinner-border-sm d-none" role="status">
-                                        <span class="visually-hidden">Loading...</span>
+                            {{-- Hàng 2 --}}
+                            <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3 w-100">
+                                <div class="border rounded p-3 bg-white shadow-sm flex-grow-1">
+                                    <label class="fw-bold mb-2 d-block text-center">Thời gian bắt đầu</label>
+                                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                        <input type="text" class="form-control datepicker" name="from_date"
+                                               value="{{ $fromDate }}" placeholder="Từ ngày">
+                                        <input type="text" class="form-control datepicker" name="to_date"
+                                               value="{{ $toDate }}" placeholder="Đến ngày">
                                     </div>
-                                </button>
-                            </form>
-                        </div>
+                                </div>
+                            </div>
 
+                            <div class="d-flex justify-content-center gap-3">
+                                <button class="btn btn-sm btn-primary px-4" type="submit">
+                                    Tìm
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -51,26 +97,27 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                {{-- <th>Tên người chơi</th> --}}
-                                <th>Địa chỉ IP</th>
-                                {{-- <th>Điều khoản</th> --}}
-                                <th>Ảnh gốc</th>
-                                {{-- <th>Ảnh đã chọn</th> --}}
-                                <th>Ảnh có khung</th>
+                                <th>STT</th>
+                                <th>Người chơi</th>
+                                <th>Full url</th>
+                                <th>Chủ đề</th>
+                                <th>Ảnh upload</th>
+                                <th>Ảnh outcome</th>
                                 <th>Thời gian bắt đầu</th>
                                 <th>Thời gian kết thúc</th>
-                                <th>Thời gian chia sẻ</th>
+                                <th>Chia sẻ fb lúc</th>
+                                <th>Chia sẻ ig lúc</th>
+                                <th>Lưu ảnh lúc</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($gamingSessions as $key => $gamingSession)
                                 <tr>
                                     <td>{{ $gamingSessions->firstItem() + $key }}</td>
-{{--                                    <th>{{ $gamingSession['player_name'] }}</th>--}}
                                     <td>{{ $gamingSession['ip_address'] }}</td>
-{{--                                    <td>{{ $gamingSession['terms_of_use'] }}</td>--}}
-
+                                    <th>{{ $gamingSession['player_name'] }}</th>
+                                    <td>{{ $gamingSession['full_url'] }}</td>
+                                    <td>{{ $gamingSession['theme_label'] }}</td>
                                     {{-- Ảnh upload gốc --}}
                                     <td>
                                         <a target="_blank" href="{{ $gamingSession['upload'] }}">
@@ -80,16 +127,6 @@
                                                  style="width: 100px; height: auto; object-fit: cover;">
                                         </a>
                                     </td>
-
-                                    {{-- Ảnh đã chọn từ outcome --}}
-{{--                                    <td>--}}
-{{--                                        <a target="_blank" href="{{ $gamingSession['outcome_chosen'] }}">--}}
-{{--                                            <img src="{{ $gamingSession['outcome_chosen'] }}"--}}
-{{--                                                 alt="Ảnh đã tạo"--}}
-{{--                                                 class="img-thumbnail rounded border-success"--}}
-{{--                                                 style="width: 100px; height: auto; object-fit: cover;">--}}
-{{--                                        </a>--}}
-{{--                                    </td>--}}
 
                                     {{-- Ảnh có khung --}}
                                     <td>
@@ -105,8 +142,10 @@
                                     <td>{{ $gamingSession['started_at'] }}</td>
                                     {{-- Thời gian kết thúc --}}
                                     <td>{{ $gamingSession['finished_at'] }}</td>
-                                    {{-- Thời gian share fb --}}
-                                    <td>{{ $gamingSession['share_facebook_at'] }}</td>
+                                    {{-- Thời gian share và lưu --}}
+                                    <td>{{ $gamingSession['share_fb_at'] }}</td>
+                                    <td>{{ $gamingSession['share_ig_at'] }}</td>
+                                    <td>{{ $gamingSession['save_at'] }}</td>
 
                                     {{-- Hành động --}}
 {{--                                    <td>--}}

@@ -2,22 +2,23 @@
 
 namespace App\Models;
 
+use App\Exceptions\ImageInvalidException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
- * @property string $uuid
+ * @property int $uuid
  * @property string $player_id
  * @property string $disk
  * @property string $path
- * @property bool $status
- * @property string $prompt
- * @property string $exception_message
+ * @property bool $is_valid
  * @property bool $terms_of_use
- * @property \DateTimeInterface $confirmed_terms_at
- * @property Carbon $created_at The timestamp when the image was created.
- * @property Carbon $updated_at The timestamp when the image was last updated.
+ * @property Carbon $confirmed_terms_at
+ * @property string $exception_message
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class UploadImage extends Model
 {
@@ -29,29 +30,34 @@ class UploadImage extends Model
         'player_id',
         'disk',
         'path',
-        'status',
-        'prompt',
+        'is_valid',
         'exception_message',
-        'terms_of_use',
-        'confirmed_terms_at'
     ];
 
     public $casts = [
-        'confirmed_terms_at' => 'datetime',
-        'terms_of_use' => 'bool',
-        'status' => 'bool'
+        'is_valid' => 'bool',
     ];
 
-    public static function make(string $playerId, ?string $prompt = null): static
+    public static function make(string $playerId): static
     {
         return new static([
             'player_id' => $playerId,
-            'prompt' => $prompt,
         ]);
     }
 
     public function player(): BelongsTo
     {
         return $this->belongsTo(Player::class);
+    }
+
+    public function validPlayerImage(string $playerId): void
+    {
+        if (!$this?->is_valid) {
+            throw new ImageInvalidException();
+        }
+
+        if ($this->player_id !== $playerId) {
+            throw new AccessDeniedHttpException();
+        }
     }
 }
