@@ -26,7 +26,8 @@
                                 <div class="d-flex align-items-center gap-2">
                                     {{-- Import --}}
                                     <button type="button" class="btn btn-success btn-sm import-btn px-3" onclick="triggerImport()">
-                                        📥 <span class="import-text">Import Data</span>
+                                        <span class="me-2">📥</span>
+                                        <span class="import-text">Import Data</span>
                                     </button>
 
                                     {{-- File mẫu --}}
