@@ -7,7 +7,7 @@ use App\Contracts\Repositories\IOutcomeImageRepository;
 use App\Contracts\Repositories\IUploadImageRepository;
 use App\Enums\JobStatus;
 use App\Helpers\ImageHelper;
-use App\Jobs\ExportGamingSessionCsvJob;
+use App\Jobs\Export\ExportGamingSessionCsvJob;
 use App\Models\ExportJob;
 use App\Models\Theme;
 use App\Queries\GamingSession\GamingSessionHandler;
@@ -80,6 +80,11 @@ class GamingSessionController extends Controller
 
     public function export(Request $request): JsonResponse
     {
+        $themeId = $request->get('theme_id');
+        $isSharedFb = $request->get('is_shared_fb');
+        $isSharedIg = $request->get('is_shared_ig');
+        $isSaved = $request->get('is_saved');
+
         $fromDate = $request->get('from_date');
         $toDate = $request->get('to_date');
 
@@ -107,6 +112,10 @@ class GamingSessionController extends Controller
         ], 3600);
 
         $total = app(GamingSessionExportService::class)->getGamingSessionTotalCount(
+            themeId: $themeId,
+            isSharedFb: $isSharedFb,
+            isSharedIg: $isSharedIg,
+            isSaved: $isSaved,
             fromDate: $fromDateFormat,
             toDate: $toDateFormat,
         );
@@ -116,11 +125,15 @@ class GamingSessionController extends Controller
         $handle = fopen($fullPath, 'w');
 
         fputcsv($handle, [
-            'Ảnh gốc',
-            'Ảnh có khung',
+            'Tên người chơi',
+            'Full url',
+            'Ảnh upload',
+            'Ảnh outcome',
             'Thời gian bắt đầu',
             'Thời gian kết thúc',
-            'Thời gian chia sẻ'
+            'Thời gian chia sẻ fb',
+            'Thời gian chia sẻ ig',
+            'Thời gian lưu',
         ]);
 
         fclose($handle);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Export;
 
 use App\Models\ExportJob;
 use App\Services\Export\GamingSessionExportService;
@@ -18,6 +18,10 @@ class ExportGamingSessionCsvJob implements ShouldQueue
     protected int $total;
     protected int $offset;
     protected int $limit;
+    protected ?string $themeId;
+    protected ?string $isSharedFb;
+    protected ?string $isSharedIg;
+    protected ?string $isSaved;
     protected ?string $fromDate;
     protected ?string $toDate;
 
@@ -28,6 +32,10 @@ class ExportGamingSessionCsvJob implements ShouldQueue
         string $jobId,
         int $total,
         int $offset = 0,
+        ?string $themeId = null,
+        ?string $isSharedFb = null,
+        ?string $isSharedIg = null,
+        ?string $isSaved = null,
         ?string $fromDate = null,
         ?string $toDate = null,
     ) {
@@ -35,6 +43,10 @@ class ExportGamingSessionCsvJob implements ShouldQueue
         $this->total = $total;
         $this->offset = $offset;
         $this->limit = config('export.gaming_session_export_limit');
+        $this->themeId = $themeId;
+        $this->isSharedFb = $isSharedFb;
+        $this->isSharedIg = $isSharedIg;
+        $this->isSaved = $isSaved;
         $this->fromDate = $fromDate;
         $this->toDate = $toDate;
         $this->onQueue('export');
@@ -60,21 +72,26 @@ class ExportGamingSessionCsvJob implements ShouldQueue
             $data = $service->getGamingSessionDataExport(
                 offset: $this->offset,
                 limit: $this->limit,
+                themeId: $this->themeId,
+                isSharedFb: $this->isSharedFb,
+                isSharedIg: $this->isSharedIg,
+                isSaved: $this->isSaved,
                 fromDate: $this->fromDate,
                 toDate: $this->toDate
             );
 
             foreach ($data as $row) {
                 fputcsv($handle, [
-//                    $row['player_name'],
-//                    $row['terms_of_use'],
+                    $row['player_first_name'],
+                    $row['full_url'],
+                    $row['theme_label'],
                     $row['upload'],
-//                    $row['outcome_image_1'],
-//                    $row['outcome_image_2'],
                     $row['image_has_frame'],
                     $row['started_at'],
                     $row['finished_at'],
-                    $row['share_facebook_at'],
+                    $row['share_fb_at'],
+                    $row['share_ig_at'],
+                    $row['save_at'],
                 ]);
             }
 
@@ -109,6 +126,10 @@ class ExportGamingSessionCsvJob implements ShouldQueue
                     jobId: $this->jobId,
                     total: $this->total,
                     offset: $nextOffset,
+                    themeId: $this->themeId,
+                    isSharedFb: $this->isSharedFb,
+                    isSharedIg: $this->isSharedIg,
+                    isSaved: $this->isSaved,
                     fromDate: $this->fromDate,
                     toDate: $this->toDate
                 );

@@ -2,6 +2,7 @@
 
 use App\Enums\UserRoleEnum;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeaderBoardController;
 use App\Http\Controllers\LLMKeyController;
 use App\Http\Controllers\LlmLogController;
 use App\Http\Controllers\GamingSessionController;
@@ -22,6 +23,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/gaming-sessions/{sessionId}', [GamingSessionController::class, 'show'])->name('gaming-session.show');
 
     Route::get('/players', [PlayerController::class, 'index'])->name('player.index');
+
+    Route::get('/leader-boards', [LeaderBoardController::class, 'index'])->name('leader-board.index');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
     Route::patch('/settings', [SettingController::class, 'update'])->name('setting.update');

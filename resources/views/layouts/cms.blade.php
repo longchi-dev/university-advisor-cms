@@ -66,8 +66,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('player.index') }}">
-                    <i class="fa fa-gamepad"></i>
+                    <i class="fa fa-user"></i>
                     <span class="menu-title">Người chơi</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('leader-board.index') }}">
+                    <i class="fa fa-trophy"></i>
+                    <span class="menu-title">Bảng xếp hạng</span>
                 </a>
             </li>
 {{--            <li class="nav-item">--}}

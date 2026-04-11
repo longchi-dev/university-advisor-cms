@@ -123,6 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'event_start_date' => env('APP_EVENT_START_DATE', now()),
     'bills_paginate' => env('APP_BILLS_PAGINATE', 15),
     'export_batch_size' => env('APP_EXPORT_BATCH_SIZE', 200),
     'brand_name' => env('BRAND_NAME', 'CMS'),

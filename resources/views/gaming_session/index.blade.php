@@ -73,7 +73,7 @@
                             {{-- Hàng 2 --}}
                             <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3 w-100">
                                 <div class="border rounded p-3 bg-white shadow-sm flex-grow-1">
-                                    <label class="fw-bold mb-2 d-block text-center">Thời gian bắt đầu</label>
+                                    <label class="fw-bold mb-2 d-block text-center">Thời gian kết thúc</label>
                                     <div class="d-flex flex-wrap gap-2 justify-content-center">
                                         <input type="text" class="form-control datepicker" name="from_date"
                                                value="{{ $fromDate }}" placeholder="Từ ngày">
@@ -98,7 +98,8 @@
                         <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Người chơi</th>
+                                <th>IP</th>
+                                <th>Tên người chơi</th>
                                 <th>Full url</th>
                                 <th>Chủ đề</th>
                                 <th>Ảnh upload</th>
@@ -115,7 +116,7 @@
                                 <tr>
                                     <td>{{ $gamingSessions->firstItem() + $key }}</td>
                                     <td>{{ $gamingSession['ip_address'] }}</td>
-                                    <th>{{ $gamingSession['player_name'] }}</th>
+                                    <th>{{ $gamingSession['player_first_name'] }}</th>
                                     <td>{{ $gamingSession['full_url'] }}</td>
                                     <td>{{ $gamingSession['theme_label'] }}</td>
                                     {{-- Ảnh upload gốc --}}
@@ -178,6 +179,10 @@
             const form = document.getElementById('filter-gaming-session');
 
             // Lấy giá trị form
+            const themeId = form.querySelector('select[name="theme_id"]')?.value || null;
+            const isSharedFb = form.querySelector('select[name="is_shared_fb"]')?.value || null;
+            const isSharedIg = form.querySelector('select[name="is_shared_ig"]')?.value || null;
+            const isSaved = form.querySelector('select[name="is_saved"]')?.value || null;
             const fromDate = form.querySelector('input[name="from_date"]')?.value || null;
             const toDate = form.querySelector('input[name="to_date"]')?.value || null;
 
@@ -196,6 +201,10 @@
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
+                        theme_id: themeId,
+                        is_shared_fb: isSharedFb,
+                        is_shared_ig: isSharedIg,
+                        is_saved: isSaved,
                         from_date: fromDate,
                         to_date: toDate,
                     })
