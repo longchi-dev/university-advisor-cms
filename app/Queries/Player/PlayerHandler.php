@@ -34,8 +34,8 @@ class PlayerHandler
             }
         }
 
-        if (is_array($phones) && count($phones) > 0) {
-            $playerQuery->whereIn('phone', $phones);
+        if (is_array($query->phones) && count($query->phones) > 0) {
+            $playerQuery->whereIn('phone', $query->phones);
         }
 
         $paginator = $playerQuery->paginate($query->perPage, ['*'], 'page', $query->page);
