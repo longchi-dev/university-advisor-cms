@@ -34,14 +34,7 @@ class PlayerHandler
             }
         }
 
-        if (!empty($query->phones)) {
-            $phones = array_filter(array_map(
-                'trim',
-                explode(',', $query->phones)
-            ));
-        }
-
-        if (!empty($phones)) {
+        if (is_array($phones) && count($phones) > 0) {
             $playerQuery->whereIn('phone', $phones);
         }
 
