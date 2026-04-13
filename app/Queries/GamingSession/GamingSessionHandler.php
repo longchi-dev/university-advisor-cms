@@ -65,7 +65,7 @@ class GamingSessionHandler
                 'upload' => ImageHelper::getImageUrl($upload->path),
                 'image_has_frame' => $outcome?->image_has_frame ? ImageHelper::getImageUrl($outcome->image_has_frame) : null,
                 'started_at' => $gamingSession->created_at?->format('d-m-Y H:i:s') ?? null,
-                'finished_at' => $gamingSession->finished_at->format('d-m-Y H:i:s') ?? null,
+                'finished_at' => $gamingSession->finished_at?->format('d-m-Y H:i:s') ?? null,
                 'share_fb_at' => $outcome?->share_fb_at?->format('d-m-Y H:i:s') ?? null,
                 'share_ig_at' => $outcome?->share_ig_at?->format('d-m-Y H:i:s') ?? null,
                 'save_at' => $outcome?->save_at?->format('d-m-Y H:i:s') ?? null,
