@@ -23,7 +23,7 @@ class UpdateSettingRequest extends FormRequest
     {
         return [
 //            'image'       => 'required|string|max:5000',
-            'validate'    => 'required|string|max:1000',
+            'validate'    => 'required|string|max:5000',
 //            'labels'      => 'required|array',
 //            'labels.*.label'    => 'required|string|max:255',
 //            'labels.*.label_en' => 'required|string|max:255',
