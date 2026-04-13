@@ -17,7 +17,7 @@ class SettingController extends Controller
     public function index(): View
     {
         $data = [];
-        $data['promptImage'] = AppSetting::getValue('prompt', 'image');
+//        $data['promptImage'] = AppSetting::getValue('prompt', 'image');
         $data['promptValidate'] = AppSetting::getValue('prompt', 'validate');
 //        $data['labels'] = KeywordLabel::with('themes')->get();
 
@@ -29,7 +29,7 @@ class SettingController extends Controller
         $validated = $request->validated();
 
         // Lưu image & validate
-        AppSetting::setValue('prompt', 'image', $validated['image']);
+//        AppSetting::setValue('prompt', 'image', $validated['image']);
         AppSetting::setValue('prompt', 'validate', $validated['validate']);
 
         // Chuẩn bị cho bulk update keyword_labels

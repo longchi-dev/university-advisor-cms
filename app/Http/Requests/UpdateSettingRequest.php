@@ -22,7 +22,7 @@ class UpdateSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image'       => 'required|string|max:5000',
+//            'image'       => 'required|string|max:5000',
             'validate'    => 'required|string|max:1000',
 //            'labels'      => 'required|array',
 //            'labels.*.label'    => 'required|string|max:255',
