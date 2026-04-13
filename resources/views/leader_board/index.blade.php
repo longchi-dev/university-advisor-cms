@@ -62,7 +62,7 @@
                         @foreach($leaderBoards as $key => $leaderBoard)
                             <tr>
                                 <td>{{ $leaderBoard['rank'] }}</td>
-                                <th>{{ $leaderBoard['player_name'] }}</th>
+                                <td>{{ $leaderBoard['player_name'] }}</td>
                                 <td>{{ $leaderBoard['phone'] }}</td>
                             </tr>
                         @endforeach
