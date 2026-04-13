@@ -36,7 +36,6 @@
                                     </a>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                     <div class="mt-2">
