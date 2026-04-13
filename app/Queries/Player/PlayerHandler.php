@@ -31,7 +31,10 @@ class PlayerHandler
             $answers = $player->quizAnswers
                 ->groupBy('quiz_id')
                 ->map(function ($items) {
-                    return $items->pluck('label_snapshot')->implode(', ');
+                    return $items->pluck('label_snapshot')
+                        ->filter()
+                        ->unique()
+                        ->implode(', ');
                 });
 
             return [
