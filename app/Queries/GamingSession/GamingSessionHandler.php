@@ -46,15 +46,7 @@ class GamingSessionHandler
         }
 
         $paginator = $gamingSessionQuery->paginate(
-            $query->perPage, [
-                'uuid',
-                'player_id',
-                'image_id',
-                'theme_id',
-                'ip_address',
-                'finished_at',
-                'created_at'
-            ], 'page', $query->page
+            $query->perPage, ['*'], 'page', $query->page
         );
 
         $paginator->getCollection()->transform(function (GamingSession $gamingSession) {

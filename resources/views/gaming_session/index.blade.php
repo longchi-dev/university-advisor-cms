@@ -116,7 +116,7 @@
                                 <tr>
                                     <td>{{ $gamingSessions->firstItem() + $key }}</td>
                                     <td>{{ $gamingSession['ip_address'] }}</td>
-                                    <th>{{ $gamingSession['player_first_name'] }}</th>
+                                    <td>{{ $gamingSession['player_first_name'] }}</td>
                                     <td>{{ $gamingSession['full_url'] }}</td>
                                     <td>{{ $gamingSession['theme_label'] }}</td>
                                     {{-- Ảnh upload gốc --}}
