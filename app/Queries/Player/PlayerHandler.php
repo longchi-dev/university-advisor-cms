@@ -29,13 +29,10 @@ class PlayerHandler
 
         $paginator->getCollection()->transform(function (Player $player) {
             $answers = $player->quizAnswers
-                ->groupBy('quiz_id')
-                ->map(function ($items) {
-                    return $items->pluck('label_snapshot')
-                        ->filter()
-                        ->unique()
-                        ->implode(', ');
-                });
+                ->pluck('label_snapshot')
+                ->filter()
+                ->unique()
+                ->implode(', ');
 
             return [
                 'last_name' => $player->last_name,
