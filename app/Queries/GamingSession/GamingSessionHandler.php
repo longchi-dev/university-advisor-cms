@@ -50,6 +50,7 @@ class GamingSessionHandler
                 'uuid',
                 'player_id',
                 'image_id',
+                'theme_id',
                 'ip_address',
                 'finished_at',
                 'created_at'
