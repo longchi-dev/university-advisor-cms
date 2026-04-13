@@ -24,14 +24,15 @@ class GamingSessionHandler
     public function execute(GamingSessionQuery $query): LengthAwarePaginator
     {
         $gamingSessionQuery = GamingSession::query()
-            ->whereBetween(DB::raw('DATE(finished_at)'), [$query->fromDate, $query->toDate])
-            ->orderBy('finished_at', 'desc');
+            ->whereBetween(DB::raw('DATE(created_at)'), [$query->fromDate, $query->toDate])
+            ->orderBy('created_at', 'desc');
 
         if ($query->themeId) {
             $gamingSessionQuery->where('theme_id', $query->themeId);
         }
 
         $filters = [
+            'hasOutcome' => 'image_has_frame',
             'isSharedFb' => 'share_fb_at',
             'isSharedIg' => 'share_ig_at',
             'isSaved' => 'save_at',

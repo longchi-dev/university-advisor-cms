@@ -11,6 +11,7 @@ class GamingSessionQuery
         public int $page,
         public int $perPage,
         public ?string $themeId = null,
+        public ?string $hasOutcome = null,
         public ?string $isSharedFb = null,
         public ?string $isSharedIg = null,
         public ?string $isSaved = null,

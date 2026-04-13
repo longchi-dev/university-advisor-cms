@@ -24,6 +24,26 @@ class PlayerHandler
             ->whereBetween(DB::raw('DATE(created_at)'), [$query->fromDate, $query->toDate])
             ->orderByDesc('created_at');
 
+        if ($query->playerType !== null && $query->playerType !== '') {
+            if ($query->playerType === '1') {
+                $playerQuery->whereNull('last_return_at');
+            }
+
+            if ($query->playerType === '0') {
+                $playerQuery->whereNotNull('last_return_at');
+            }
+        }
+
+        if (!empty($query->phones)) {
+            $phones = array_filter(array_map(
+                'trim',
+                explode(',', $query->phones)
+            ));
+        }
+
+        if (!empty($phones)) {
+            $playerQuery->whereIn('phone', $phones);
+        }
 
         $paginator = $playerQuery->paginate($query->perPage, ['*'], 'page', $query->page);
 

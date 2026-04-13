@@ -43,6 +43,12 @@
                                     @endforeach
                                 </select>
 
+                                <select name="has_outcome" id="has_outcome" class="form-control flex-grow-1 mb-3">
+                                    <option value="">Có ảnh outcome không?</option>
+                                    <option value="1" {{ request('has_outcome') === '1' ? 'selected' : '' }}>Có</option>
+                                    <option value="0" {{ request('has_outcome') === '0' ? 'selected' : '' }}>Không</option>
+                                </select>
+
                                 <div class="d-flex gap-2 mb-3 w-100">
                                     <div class="form-group flex-fill mb-0">
                                         <select name="is_shared_fb" id="is_shared_fb" class="form-control">
@@ -73,7 +79,7 @@
                             {{-- Hàng 2 --}}
                             <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3 w-100">
                                 <div class="border rounded p-3 bg-white shadow-sm flex-grow-1">
-                                    <label class="fw-bold mb-2 d-block text-center">Thời gian kết thúc</label>
+                                    <label class="fw-bold mb-2 d-block text-center">Thời gian bắt đầu</label>
                                     <div class="d-flex flex-wrap gap-2 justify-content-center">
                                         <input type="text" class="form-control datepicker" name="from_date"
                                                value="{{ $fromDate }}" placeholder="Từ ngày">

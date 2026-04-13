@@ -17,6 +17,7 @@ class PlayerController extends Controller
 
         $data = [];
 
+        $playerType = $request->get('is_new_user');
         $phonesInput = $request->input('phone', '');
         $phones = array_filter(array_map('trim', explode(',', $phonesInput)));
 
@@ -28,6 +29,8 @@ class PlayerController extends Controller
         $playerQuery = new PlayerQuery(
             page: $page,
             perPage: $perPage,
+            playerType: $playerType,
+            phones: $phones,
             fromDate: $fromDateCarbon->toDateString(),
             toDate: $toDateCarbon->toDateString(),
         );

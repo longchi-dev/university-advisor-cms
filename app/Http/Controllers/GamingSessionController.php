@@ -34,6 +34,7 @@ class GamingSessionController extends Controller
         $toDateCarbon = Carbon::parse($toDate);
 
         $themeId = $request->get('theme_id');
+        $hasOutcome = $request->get('has_outcome');
         $isSharedFb = $request->get('is_shared_fb');
         $isSharedIg = $request->get('is_shared_ig');
         $isSaved = $request->get('is_saved');
@@ -42,6 +43,7 @@ class GamingSessionController extends Controller
             page: $page,
             perPage: $perPage,
             themeId: $themeId,
+            hasOutcome: $hasOutcome,
             isSharedFb: $isSharedFb,
             isSharedIg: $isSharedIg,
             isSaved: $isSaved,

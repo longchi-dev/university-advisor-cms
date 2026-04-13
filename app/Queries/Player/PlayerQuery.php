@@ -10,6 +10,8 @@ class PlayerQuery
     public function __construct(
         public int $page,
         public int $perPage,
+        public ?string $playerType = null,
+        public ?array $phones = [],
         public ?string $fromDate = null,
         public ?string $toDate = null,
     ) {
