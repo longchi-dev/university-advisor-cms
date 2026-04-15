@@ -108,6 +108,7 @@
                                 <th>Tên người chơi</th>
                                 <th>Full url</th>
                                 <th>Chủ đề</th>
+                                <th>Từ khoá</th>
                                 <th>Ảnh upload</th>
                                 <th>Ảnh outcome</th>
                                 <th>Thời gian bắt đầu</th>
@@ -125,6 +126,7 @@
                                     <td>{{ $gamingSession['player_first_name'] }}</td>
                                     <td>{{ $gamingSession['full_url'] }}</td>
                                     <td>{{ $gamingSession['theme_label'] }}</td>
+                                    <td>{{ $gamingSession['theme_keyword'] }}</td>
                                     {{-- Ảnh upload gốc --}}
                                     <td>
                                         <a target="_blank" href="{{ $gamingSession['upload'] }}">

@@ -8,6 +8,7 @@ use App\Contracts\Repositories\IThemeRepository;
 use App\Contracts\Repositories\IUploadImageRepository;
 use App\Helpers\ImageHelper;
 use App\Models\GamingSession;
+use App\Models\ThemeKeyword;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -54,7 +55,9 @@ class GamingSessionHandler
             $player = app(IPlayerRepository::class)->findById($gamingSession->player_id);
             $upload = app(IUploadImageRepository::class)->findById($gamingSession->image_id);
             $outcome = app(IOutcomeImageRepository::class)->findBySessionId($gamingSession->uuid);
-            $theme = app(IThemeRepository::class)->findById($gamingSession->theme_id);
+
+            $themeKeyword = ThemeKeyword::query()->find($gamingSession->theme_keyword_id);
+            $theme = $themeKeyword ? app(IThemeRepository::class)->findById($themeKeyword->theme_id) : null;
 
             return [
                 'id' => $gamingSession->uuid,
@@ -62,6 +65,7 @@ class GamingSessionHandler
                 'player_first_name' => $player?->first_name ?? null,
                 'full_url' => $gamingSession->full_url,
                 'theme_label' => $theme?->label ?? null,
+                'theme_content' => $themeKeyword?->content ?? null,
                 'upload' => ImageHelper::getImageUrl($upload->path),
                 'image_has_frame' => $outcome?->image_has_frame ? ImageHelper::getImageUrl($outcome->image_has_frame) : null,
                 'started_at' => $gamingSession->created_at?->format('d-m-Y H:i:s') ?? null,

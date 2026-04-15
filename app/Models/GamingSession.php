@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
  * @property string $uuid The UUID of the gaming session.
  * @property string $player_id The UUID of the associated player.
  * @property string $image_id The UUID of the associated image.
- * @property int $theme_id
+ * @property int $theme_keyword_id
  * @property Carbon|null $finished_at The timestamp when the session finished.
  * @property string|null $full_url The full URL associated with the session.
  * @property string|null $ip_address The IP address of the client.
@@ -31,6 +31,7 @@ class GamingSession extends Model
     protected $fillable = [
         'player_id',
         'image_id',
+        'theme_keyword_id',
         'finished_at',
         'full_url',
         'ip_address',
@@ -45,6 +46,7 @@ class GamingSession extends Model
     public static function make(
         string $playerId,
         string $imageId,
+        int $themeKeywordId,
         string $fullUrl,
         ?string $ipAddress = null,
         ?string $browser = null,
@@ -55,6 +57,7 @@ class GamingSession extends Model
         return new static([
             'player_id' => $playerId,
             'image_id' => $imageId,
+            'theme_keyword_id' => $themeKeywordId,
             'full_url' => $fullUrl,
             'finished_at' => $finishedAt,
             'ip_address' => $ipAddress,
