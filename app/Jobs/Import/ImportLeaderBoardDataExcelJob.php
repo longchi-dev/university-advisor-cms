@@ -19,16 +19,19 @@ class ImportLeaderBoardDataExcelJob implements ShouldQueue
 
     protected string $jobId;
     protected string $filePath;
+    protected int $week;
     protected int $offset;
     protected int $limit;
 
     public function __construct(
         string $jobId,
         string $filePath,
+        int $week,
         int $offset = 0,
     ) {
         $this->jobId = $jobId;
         $this->filePath = $filePath;
+        $this->week = $week;
         $this->offset = $offset;
         $this->limit = config('import.leader_board_import_limit');
         $this->onQueue('import');
@@ -51,11 +54,9 @@ class ImportLeaderBoardDataExcelJob implements ShouldQueue
                 $reader = ReaderEntityFactory::createXLSXReader();
                 $reader->open($path);
 
-                $startDate = Carbon::parse(config('app.event_start_date'))->startOfDay();
-                $today = now()->startOfDay();
+                $weekNumber = $this->week;
 
-                $diffDays = $startDate->diffInDays($today);
-                $weekNumber = intdiv($diffDays, 7) + 1;
+                $startDate = Carbon::parse(config('app.event_start_date'))->startOfDay();
                 $weekStart = $startDate->copy()->addDays(($weekNumber - 1) * 7);
 
                 $rows = [];

@@ -85,11 +85,25 @@
             const file = e.target.files[0];
             if (!file) return;
 
+            const week = document.querySelector('select[name="week_number"]').value;
+
             const btn = document.querySelector('.import-btn');
             const text = btn.querySelector('.import-text');
 
+            if (!week) {
+                showNotification('Vui lòng chọn tuần để import', 'error');
+                e.target.value = '';
+                return;
+            }
+
+            if (!confirm(`Bạn có chắc muốn import và ghi đè dữ liệu tuần ${week}?`)) {
+                e.target.value = '';
+                return;
+            }
+
             const formData = new FormData();
             formData.append('file', file);
+            formData.append('week', week);
 
             btn.disabled = true;
             text.textContent = 'Uploading...';
@@ -143,7 +157,14 @@
                 if (data.status === 'completed') {
                     showNotification('Import completed!', 'success');
                     resetImportBtn();
-                    setTimeout(() => location.reload(), 1000);
+                    setTimeout(() => {
+                        const week = document.querySelector('select[name="week_number"]').value;
+                        if (week) {
+                            window.location.href = `?week_number=${week}`;
+                        } else {
+                            location.reload();
+                        }
+                    }, 1000);
                 } else if (data.status === 'failed') {
                     throw new Error(data.error || 'Import failed');
 

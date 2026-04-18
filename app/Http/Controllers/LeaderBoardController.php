@@ -38,7 +38,9 @@ class LeaderBoardController extends Controller
         $leaderBoards = app(LeaderBoardHandler::class)->execute($leaderBoardQuery);
 
         $data['leaderBoards'] = $leaderBoards;
-        $data['maxWeek'] = LeaderBoard::query()->max('week_number') ?? 1;
+        $data['maxWeek'] = 8;
+
+//        $data['maxWeek'] = LeaderBoard::query()->max('week_number') ?? 8;
 //        $data['fromDate'] = $fromDate;
 //        $data['toDate'] = $toDate;
         return view('leader_board.index', $data);
@@ -47,18 +49,15 @@ class LeaderBoardController extends Controller
     public function import(Request $request): JsonResponse
     {
         $request->validate([
-            'file' => 'required|file|mimes:xlsx'
+            'file' => 'required|file|mimes:xlsx',
+            'week' => 'required|integer|min:1'
         ]);
 
         $file = $request->file('file');
+        $weekNumber = $request->get('week');
+        $date = now()->format('d-m-Y');
 
         $jobId = uniqid();
-
-        $startDate = Carbon::parse(config('app.event_start_date'))->startOfDay();
-        $today = now()->startOfDay();
-
-        $weekNumber = intdiv($startDate->diffInDays($today), 7) + 1;
-        $date = $today->format('Y-m-d');
 
         $fileName = "leaderboard-week-{$weekNumber}-{$date}-{$jobId}.xlsx";
 
@@ -72,7 +71,8 @@ class LeaderBoardController extends Controller
 
         dispatch(new ImportLeaderBoardDataExcelJob(
             jobId: $jobId,
-            filePath: $path
+            filePath: $path,
+            week: $weekNumber
         ));
 
         return response()->json([
