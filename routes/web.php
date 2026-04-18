@@ -2,6 +2,7 @@
 
 use App\Enums\UserRoleEnum;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HubspotLogController;
 use App\Http\Controllers\LeaderBoardController;
 use App\Http\Controllers\LLMKeyController;
 use App\Http\Controllers\LlmLogController;
@@ -31,8 +32,11 @@ Route::middleware(['auth'])->group(function () {
 
 //    Route::resource('prompt-randoms', PromptRandomController::class);
 //
-    Route::get('/llm_log', [LlmLogController::class, 'index'])->name('llm_log.index');
+    Route::get('/llm-log', [LlmLogController::class, 'index'])->name('llm-log.index');
     Route::resource('/llm-keys', LLMKeyController::class);
+
+    Route::get('/hubspot-log', [HubspotLogController::class, 'index'])->name('hubspot-log.index');
+
 
 //    Route::middleware('role:' .UserRoleEnum::SETTING->value)->group(function () {
 //        Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');

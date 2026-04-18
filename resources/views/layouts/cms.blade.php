@@ -83,9 +83,15 @@
 {{--                </a>--}}
 {{--            </li>--}}
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('llm_log.index') }}">
+                <a class="nav-link" href="{{ route('llm-log.index') }}">
                     <i class="fa fa-refresh"></i>
                     <span class="menu-title">LLM Log</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('hubspot-log.index') }}">
+                    <i class="fa fa-refresh"></i>
+                    <span class="menu-title">Hubspot Log</span>
                 </a>
             </li>
             <li class="nav-item">
