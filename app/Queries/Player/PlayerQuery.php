@@ -11,6 +11,7 @@ class PlayerQuery
         public int $page,
         public int $perPage,
         public ?string $playerType = null,
+        public ?array $emails = [],
         public ?array $phones = [],
         public ?string $fromDate = null,
         public ?string $toDate = null,

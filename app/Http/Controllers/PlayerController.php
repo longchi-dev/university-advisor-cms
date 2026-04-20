@@ -18,6 +18,10 @@ class PlayerController extends Controller
         $data = [];
 
         $playerType = $request->get('is_new_user');
+
+        $emailInput = $request->input('email', '');
+        $emails = array_filter(array_map('trim', explode(',', $emailInput)));
+
         $phonesInput = $request->input('phone', '');
         $phones = array_filter(array_map('trim', explode(',', $phonesInput)));
 
@@ -30,6 +34,7 @@ class PlayerController extends Controller
             page: $page,
             perPage: $perPage,
             playerType: $playerType,
+            emails: $emails,
             phones: $phones,
             fromDate: $fromDateCarbon->toDateString(),
             toDate: $toDateCarbon->toDateString(),
@@ -38,6 +43,7 @@ class PlayerController extends Controller
         $players = app(PlayerHandler::class)->execute($playerQuery);
 
         $data['players'] = $players;
+        $data['emails'] = !empty($emails) ? implode(', ', $emails) : '';
         $data['phones'] = !empty($phones) ? implode(', ', $phones) : '';
         $data['fromDate'] = $fromDate;
         $data['toDate'] = $toDate;

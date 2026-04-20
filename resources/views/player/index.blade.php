@@ -45,6 +45,13 @@
                                     </option>
                                 </select>
 
+                                {{-- Email --}}
+                                <input type="text" name="email" id="email"
+                                       class="form-control flex-grow-1 mb-3"
+                                       placeholder="Có thể nhập nhiều email: a@gmail.com, b@gmail.com"
+                                       value="{{ old('email', request('email')) }}"
+                                       style="min-width:180px;">
+
                                 {{-- Phone --}}
                                 <input type="text" name="phone" id="phone" inputmode="tel"
                                        pattern="^(\s*\d{10,11}\s*)(,\s*\d{10,11}\s*)*$"

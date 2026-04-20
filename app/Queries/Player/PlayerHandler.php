@@ -34,6 +34,10 @@ class PlayerHandler
             }
         }
 
+        if(is_array($query->emails) && count($query->emails) > 0) {
+            $playerQuery->whereIn('email', $query->emails);
+        }
+
         if (is_array($query->phones) && count($query->phones) > 0) {
             $playerQuery->whereIn('phone', $query->phones);
         }
