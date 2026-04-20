@@ -94,6 +94,7 @@
                                 <th>Họ</th>
                                 <th>Tên</th>
                                 <th>Sđt</th>
+                                <th>Email</th>
                                 <th>Người chơi</th>
                                 <th>Bánh kẹo đã ăn</th>
                                 <th>Điều khoản</th>
@@ -108,6 +109,7 @@
                                     <td>{{ $player['last_name'] }}</td>
                                     <td>{{ $player['first_name'] }}</td>
                                     <td>{{ $player['phone'] }}</td>
+                                    <td>{{ $player['email'] }}</td>
                                     <td>{{ $player['user_type'] }}</td>
                                     <td>{{ $player['answers'] }}</td>
                                     <td>{{ $player['terms_of_use'] }}</td>

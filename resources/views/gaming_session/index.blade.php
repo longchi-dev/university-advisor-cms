@@ -139,12 +139,16 @@
 
                                     {{-- Ảnh có khung --}}
                                     <td>
-                                        <a target="_blank" href="{{ $gamingSession['image_has_frame'] }}">
-                                            <img src="{{ $gamingSession['image_has_frame'] }}"
-                                                 alt="Ảnh có khung"
-                                                 class="img-thumbnail rounded border-success"
-                                                 style="width: 100px; height: auto; object-fit: cover;">
-                                        </a>
+                                        @if(!empty($gamingSession['image_has_frame']))
+                                            <a target="_blank" href="{{ $gamingSession['image_has_frame'] }}">
+                                                <img src="{{ $gamingSession['image_has_frame'] }}"
+                                                     alt="Ảnh có khung"
+                                                     class="img-thumbnail rounded border-success"
+                                                     style="width: 100px; height: auto; object-fit: cover;">
+                                            </a>
+                                        @else
+                                            <span>N/A</span>
+                                        @endif
                                     </td>
 
                                     {{-- Thời gian bắt đầu --}}
