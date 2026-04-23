@@ -21,7 +21,7 @@ class HubspotLogController extends Controller
         $toDateCarbon = Carbon::parse($toDate);
 
         $hubspotLogs = HubspotLog::query()
-            ->where('action', 'submit_form')
+            ->whereIn('action', ['submit_form', 'send_otp'])
             ->whereBetween(DB::raw('DATE(requested_at)'), [$fromDateCarbon->toDateString(), $toDateCarbon->toDateString()])
             ->orderByDesc('requested_at')
             ->paginate(15);
