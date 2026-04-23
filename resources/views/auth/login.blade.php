@@ -263,6 +263,12 @@
                         @enderror
                     </div>
 
+                    @if ($errors->has('login'))
+                        <div class="error-message mb-2">
+                            {{ $errors->first('login') }}
+                        </div>
+                    @endif
+
                     <button type="submit" class="btn-login">
                         <i class="bi bi-box-arrow-in-right me-2"></i>
                         Sign In
