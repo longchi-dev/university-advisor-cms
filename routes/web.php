@@ -2,13 +2,10 @@
 
 use App\Enums\UserRoleEnum;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HubspotLogController;
-use App\Http\Controllers\LeaderBoardController;
 use App\Http\Controllers\LLMKeyController;
 use App\Http\Controllers\LlmLogController;
 use App\Http\Controllers\GamingSessionController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PromptRandomController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,12 +17,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/gaming-sessions', [GamingSessionController::class, 'index'])->name('gaming-session.index');
-    Route::get('/gaming-sessions/{sessionId}', [GamingSessionController::class, 'show'])->name('gaming-session.show');
-
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
-    Route::get('/leader-boards', [LeaderBoardController::class, 'index'])->name('leader-board.index');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
     Route::patch('/settings', [SettingController::class, 'update'])->name('setting.update');
@@ -34,9 +26,6 @@ Route::middleware(['auth'])->group(function () {
 //
     Route::get('/llm-log', [LlmLogController::class, 'index'])->name('llm-log.index');
     Route::resource('/llm-keys', LLMKeyController::class);
-
-    Route::get('/hubspot-log', [HubspotLogController::class, 'index'])->name('hubspot-log.index');
-
 
 //    Route::middleware('role:' .UserRoleEnum::SETTING->value)->group(function () {
 //        Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
