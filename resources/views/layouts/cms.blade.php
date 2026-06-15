@@ -59,51 +59,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('gaming-session.index') }}">
-                    <i class="fa fa-gamepad"></i>
-                    <span class="menu-title">Lượt chơi</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('player.index') }}">
+                <a class="nav-link" href="{{ route('users.index') }}">
                     <i class="fa fa-user"></i>
-                    <span class="menu-title">Người chơi</span>
+                    <span class="menu-title">Người dùng</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('leader-board.index') }}">
-                    <i class="fa fa-trophy"></i>
-                    <span class="menu-title">Bảng xếp hạng</span>
-                </a>
-            </li>
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link" href="{{ route('llm-keys.index') }}">--}}
-{{--                    <i class="fa fa-key"></i>--}}
-{{--                    <span class="menu-title">Image Key</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('llm-log.index') }}">
                     <i class="fa fa-refresh"></i>
                     <span class="menu-title">LLM Log</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('hubspot-log.index') }}">
-                    <i class="fa fa-refresh"></i>
-                    <span class="menu-title">Hubspot Log</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('setting.index') }}">
-                    <i class="fa fa-cog"></i>
-                    <span class="menu-title">Cài đặt</span>
-                </a>
-            </li>
 {{--            <li class="nav-item">--}}
-{{--                <a class="nav-link" href="{{ route('prompt-randoms.index') }}">--}}
+{{--                <a class="nav-link" href="{{ route('setting.index') }}">--}}
 {{--                    <i class="fa fa-cog"></i>--}}
-{{--                    <span class="menu-title">Prompt random</span>--}}
+{{--                    <span class="menu-title">Cài đặt</span>--}}
 {{--                </a>--}}
 {{--            </li>--}}
         </ul>

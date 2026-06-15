@@ -2,26 +2,33 @@
 
 namespace App\Models;
 
-use App\Enums\UserRoleEnum;
-use Database\Factories\UserFactory;
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Carbon;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
+ * @property string $id
  * @property string $name
- * @property string $username
  * @property string $email
  * @property string $password
- * @property UserRoleEnum $role
- */
-class User extends Authenticatable
+ * @property string|null $email_verified_at
+ * @property Carbon|null $last_login_at
+ * @property string|null $last_login_ip
+ * @property string|null $last_login_user_agent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static whereHas(string $string, \Closure $param)
+*/
+class User extends Authenticatable implements JWTSubject
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
-
-    public $timestamps = false;
+    use HasFactory, Notifiable, HasApiTokens, Uuid, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +39,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'email_verified_at',
+        'last_login_at',
+        'last_login_ip',
+        'last_login_user_agent',
     ];
 
     /**
@@ -42,6 +52,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'remember_token',
     ];
 
     /**
@@ -52,13 +63,26 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'updated_at' => 'datetime',
+            'created_at' => 'datetime',
+            'email_verified_at' => 'datetime',
+            'last_login_at' => 'datetime',
+            'last_login_user_agent' => 'string',
             'password' => 'hashed',
-            'role' => UserRoleEnum::class,
         ];
     }
 
-    public static function make(string $name, string $email, string $password): static
-    {
+    /**
+     * @param string $name
+     * @param string $email
+     * @param string $password
+     * @return static
+     */
+    public static function make(
+        string $name,
+        string $email,
+        string $password,
+    ): static {
         return new static([
             'name' => $name,
             'email' => $email,
@@ -66,18 +90,43 @@ class User extends Authenticatable
         ]);
     }
 
-    public function isViewer(): bool
+    public function profile(): HasOne
     {
-        return $this->role == UserRoleEnum::VIEWER;
+        return $this->hasOne(UserProfile::class, 'user_id', 'id');
     }
 
-    public function isSettings(): bool
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier(): mixed
     {
-        return $this->role == UserRoleEnum::SETTING;
+        return $this->getKey();
     }
 
-    public function isAdmin(): bool
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims(): array
     {
-        return $this->role == UserRoleEnum::ADMIN;
+        return [];
+    }
+
+    public function markLogin(string $ip, string $userAgent): void
+    {
+        $this->last_login_at = now();
+        $this->last_login_ip = $ip;
+        $this->last_login_user_agent = $userAgent;
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'email', 'type', 'role_id'])
+            ->useLogName('user')
+            ->setDescriptionForEvent(fn(string $eventName) => "User {$this->name} has been {$eventName}");
     }
 }

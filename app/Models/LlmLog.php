@@ -22,7 +22,6 @@ class LlmLog extends Model
         'exec_time',
     ];
 
-    // Ép kiểu cho các field
     protected $casts = [
         'request_at' => 'datetime',
         'response_at' => 'datetime',

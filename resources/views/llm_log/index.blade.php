@@ -12,10 +12,10 @@
                                     <div class="form-group d-flex gap-2 flex-fill mb-0">
                                         <input type="text" name="from_date" id="from_date"
                                                class="form-control datepicker" placeholder="Từ ngày"
-                                               value="{{ request('from_date', now()->format('d-m-Y')) }}">
+                                               value="{{ request('from_date', $fromDate) }}">
                                         <input type="text" name="to_date" id="to_date"
                                                class="form-control datepicker" placeholder="Đến ngày"
-                                               value="{{ request('to_date', now()->format('d-m-Y')) }}">
+                                               value="{{ request('to_date', $toDate) }}">
                                     </div>
 
                                     <div class="input-group-append">
@@ -29,167 +29,166 @@
             </div>
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>LLM Name</th>
-                            <th>LLM Model</th>
-                            <th>LLM Key</th>
+                            <th>Người dùng</th>
+                            <th>Model</th>
+                            <th>Loại Prompt</th>
                             <th>Prompt</th>
-                            <th>Image</th>
                             <th>Response</th>
-                            <th>Request At</th>
-                            <th>Response At</th>
-                            <th>Exec Time (s)</th>
+                            <th>Tokens (I/O/T)</th>
+                            <th>Thời gian chạy</th>
+                            <th>Trạng thái</th>
                             <th>Ngày tạo</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($llmLogs as $key => $llmLog)
+                        @forelse($llmLogs as $key => $llmLog)
+                            @php
+                                // Tạo một ID độc nhất cho Modal dựa vào index vòng lặp
+                                $modalId = $llmLogs->firstItem() + $key;
+                            @endphp
                             <tr>
-                                <td>{{ $llmLogs->firstItem() + $key }}</td>
+                                <td>{{ $modalId }}</td>
 
-                                {{-- LLM Name --}}
+                                {{-- Người dùng --}}
                                 <td>
-                                    <span class="badge badge-info">{{ $llmLog->llm_name ?? '-' }}</span>
+                                    <strong>{{ $llmLog['name'] ?? 'N/A' }}</strong><br>
+                                    <small class="text-muted">{{ $llmLog['email'] ?? '-' }}</small>
                                 </td>
 
-                                {{-- LLM Model --}}
+                                {{-- Model --}}
                                 <td>
-                                    <span class="badge badge-secondary">{{ $llmLog->llm_model ?? '-' }}</span>
+                                    <span class="badge bg-dark">{{ $llmLog['model'] ?? '-' }}</span>
                                 </td>
 
-                                {{-- LLM Key --}}
+                                {{-- Loại Prompt --}}
                                 <td>
-                                    @if(Str::startsWith($llmLog->llm_key, 'sk-'))
-                                        {{-- Lấy 50 ký tự đầu --}}
-                                        {{ substr($llmLog->llm_key, 0, 50) . (strlen($llmLog->llm_key) > 50 ? '...' : '') }}
-                                    @else
-                                        {{-- Bỏ 10 ký tự đầu, lấy phần còn lại --}}
-                                        {{ '...' . substr($llmLog->llm_key, 5) }}
-                                    @endif
+                                    <span class="badge bg-info text-light">{{ $llmLog['prompt_type'] ?? '-' }}</span>
                                 </td>
 
                                 {{-- Prompt --}}
                                 <td>
                                     <button type="button"
-                                            class="btn btn-sm btn-link p-0 show_modal"
+                                            class="btn btn-sm btn-outline-primary show_modal"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#promptModal{{ $llmLog->id }}">
-                                        Xem
+                                            data-bs-target="#promptModal{{ $modalId }}">
+                                        Xem chi tiết
                                     </button>
 
                                     {{-- Modal hiển thị full Prompt --}}
-                                    <div class="modal fade" id="promptModal{{ $llmLog->id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal fade" id="promptModal{{ $modalId }}" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Prompt (ID: {{ $llmLog->id }})</h5>
+                                                    <h5 class="modal-title">Prompt chi tiết (#{{ $modalId }})</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
-                                                <div class="modal-body" style="white-space: pre-line;">
-                                                    {{ $llmLog->prompt }}
+                                                <div class="modal-body">
+                                                    {{-- Kiểm tra nếu là mảng JSON (chứa role, content...) thì format đẹp, ngược lại in chuỗi thường --}}
+                                                    <pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; white-space: pre-wrap;">@if(is_array($llmLog['prompt'])){{ json_encode($llmLog['prompt'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}@else{{ $llmLog['prompt'] }}@endif</pre>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </td>
-
-                                {{-- Image URL --}}
-                                <td>
-                                    @if($llmLog->image_url)
-                                        <a href="{{ $llmLog->image_url }}" target="_blank">
-                                            <img src="{{ $llmLog->image_url }}"
-                                                 alt="LLM Image"
-                                                 class="img-thumbnail rounded"
-                                                 style="width: 80px; height: auto; object-fit: cover;"
-                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                                            <span style="display: none; color: #666;">No Image</span>
-                                        </a>
-                                    @else
-                                        <span class="text-muted">-</span>
-                                    @endif
                                 </td>
 
                                 {{-- Response --}}
                                 <td>
-                                    <div style="max-width: 300px; white-space: normal; overflow: hidden; text-overflow: ellipsis;">
-                                        {{ Str::limit($llmLog->response, 150) ?? '-' }}
+                                    <div style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        @if(is_array($llmLog['response']))
+                                            {{ Str::limit(json_encode($llmLog['response'], JSON_UNESCAPED_UNICODE), 100) }}
+                                        @else
+                                            {{ Str::limit($llmLog['response'], 100) ?? '-' }}
+                                        @endif
                                     </div>
-                                    @if(strlen($llmLog->response) > 150)
-                                        <button type="button"
-                                                class="btn btn-sm btn-link p-0 show_modal"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#responseModal{{ $llmLog->id }}">
-                                            Xem
-                                        </button>
-                                    @endif
 
-                                    @php
-                                        $response = $llmLog->response;
-                                        $decoded = json_decode($response, true);
-                                        if (is_null($decoded)) {
-                                            $decoded = json_decode(stripslashes($response), true);
-                                        }
-                                    @endphp
+                                    <button type="button"
+                                            class="btn btn-sm btn-link p-0 show_modal"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#responseModal{{ $modalId }}">
+                                        Xem đầy đủ
+                                    </button>
 
                                     {{-- Modal hiển thị full Response --}}
-                                    <div class="modal fade" id="responseModal{{ $llmLog->id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal fade" id="responseModal{{ $modalId }}" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Response (ID: {{ $llmLog->id }})</h5>
+                                                    <h5 class="modal-title">Response chi tiết (#{{ $modalId }})</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <pre>{{ $decoded ? json_encode($decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $response }}</pre>
+                                                    @if(!empty($llmLog['error_message']))
+                                                        <div class="alert alert-danger mb-3">
+                                                            <strong>Lỗi:</strong> {{ $llmLog['error_message'] }}
+                                                        </div>
+                                                    @endif
+
+                                                    {{-- Sử dụng thẻ <pre> kết hợp định dạng JSON đẹp mắt --}}
+                                                    <pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; white-space: pre-wrap;">@if(is_array($llmLog['response'])){{ json_encode($llmLog['response'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}@else{{ $llmLog['response'] }}@endif</pre>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
 
-                                {{-- Request At --}}
+                                {{-- Tokens (Input / Output / Total) --}}
                                 <td>
-                                    {{ $llmLog->request_at
-                                        ? \Carbon\Carbon::parse($llmLog->request_at)->format('d/m/Y H:i:s')
-                                        : '-' }}
-                                </td>
-
-                                {{-- Response At --}}
-                                <td>
-                                    {{ $llmLog->response_at
-                                        ? \Carbon\Carbon::parse($llmLog->response_at)->format('d/m/Y H:i:s')
-                                        : '-' }}
+                                    <small>
+                                        In: <b>{{ number_format($llmLog['tokens_input'] ?? 0) }}</b><br>
+                                        Out: <b>{{ number_format($llmLog['tokens_output'] ?? 0) }}</b><br>
+                                        Tổng: <span class="text-primary">{{ number_format($llmLog['tokens_total'] ?? 0) }}</span>
+                                    </small>
                                 </td>
 
                                 {{-- Exec Time --}}
                                 <td>
-                                    @if($llmLog->exec_time)
-                                        <span class="badge badge-{{ $llmLog->exec_time > 5 ? 'danger' : ($llmLog->exec_time > 2 ? 'warning' : 'success') }}">
-                                            {{ number_format($llmLog->exec_time, 2) }}s
+                                    @if($llmLog['execute_time_ms'])
+                                        @php $seconds = $llmLog['execute_time_ms'] / 1000; @endphp
+                                        <span class="badge {{ $seconds > 5 ? 'bg-danger' : ($seconds > 2 ? 'bg-warning text-dark' : 'bg-success') }}">
+                                            {{ number_format($seconds, 2) }}s
                                         </span>
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
                                 </td>
 
+                                {{-- Trạng thái --}}
+                                <td>
+                                    @if(($llmLog['status'] ?? '') === 'success')
+                                        <span class="badge bg-success">Success</span>
+                                    @else
+                                        <span class="badge bg-danger" title="{{ $llmLog['error_message'] ?? 'Thất bại' }}">Failed</span>
+                                    @endif
+                                </td>
+
                                 {{-- Ngày tạo --}}
-                                <td>{{ \Carbon\Carbon::parse($llmLog->created_at)->format('d-m-Y H:i:s') }}</td>
+                                <td>
+                                    <small>{{ $llmLog['created_at'] ?? '-' }}</small>
+                                </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="10" class="text-center text-muted">Không tìm thấy bản ghi log nào trong khoảng thời gian này.</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
-            <x-pagination :data="$llmLogs" />
+            <div class="mt-3">
+                <x-pagination :data="$llmLogs" />
+            </div>
         </div>
     </div>
 @endsection
 
 @push('js')
     <script>
+        // Fix lỗi hiển thị z-index chồng chéo của Bootstrap Modal trong Admin Dashboard
         document.addEventListener('show.bs.modal', function (event) {
             const modal = event.target;
             document.body.appendChild(modal);

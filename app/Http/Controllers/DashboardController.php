@@ -24,13 +24,7 @@ class DashboardController extends Controller
     {
         $data = [];
 
-        $data['totalPlayers'] = Player::query()->count();
-        $data['totalGamingSessions'] = GamingSession::query()->whereNotNull('finished_at')->count();
-
-        // count share
-        $data['totalShareFacebook'] = OutcomeImage::query()->whereNotNull('share_fb_at')->count();
-        $data['totalShareInstagram'] = OutcomeImage::query()->whereNotNull('share_ig_at')->count();
-        $data['totalSave'] = OutcomeImage::query()->whereNotNull('save_at')->count();
+        $data['totalUsers'] = User::query()->whereNot('email', 'admin@gmail.com')->count();
 
         return view('dashboard', $data);
     }
@@ -39,8 +33,7 @@ class DashboardController extends Controller
     {
         $status = Cache::get(config('cache_key.export_key') . ":{$jobId}");
         if (!$status) {
-            $job = ExportJob::query()
-                ->where('job_id', $jobId)->first();
+            $job = ExportJob::query()->where('job_id', $jobId)->first();
 
             if (!$job) {
                 return response()->json(['error' => 'Job not found'], 404);

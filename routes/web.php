@@ -7,7 +7,7 @@ use App\Http\Controllers\LeaderBoardController;
 use App\Http\Controllers\LLMKeyController;
 use App\Http\Controllers\LlmLogController;
 use App\Http\Controllers\GamingSessionController;
-use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PromptRandomController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/gaming-sessions', [GamingSessionController::class, 'index'])->name('gaming-session.index');
     Route::get('/gaming-sessions/{sessionId}', [GamingSessionController::class, 'show'])->name('gaming-session.show');
 
-    Route::get('/players', [PlayerController::class, 'index'])->name('player.index');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('/leader-boards', [LeaderBoardController::class, 'index'])->name('leader-board.index');
 

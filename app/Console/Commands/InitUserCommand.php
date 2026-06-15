@@ -30,8 +30,8 @@ class InitUserCommand extends Command
 
         $name = $this->ask('Enter the user name');
         $email = $this->ask('Enter the user email');
-        $password = $this->secret('Enter the user password');
-        $confirmPassword = $this->secret('Confirm the user password');
+        $password = $this->ask('Enter the user password');
+        $confirmPassword = $this->ask('Confirm the user password');
 //        $role = $this->choice('Choose the user role', UserRoleEnum::values());
         // Kiểm tra xem mật khẩu có khớp không
         if ($password !== $confirmPassword) {

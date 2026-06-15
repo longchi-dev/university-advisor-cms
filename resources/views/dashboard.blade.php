@@ -25,10 +25,10 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-xs font-weight-bold text-white text-uppercase mb-1 opacity-90">
-                                    Total Players
+                                    Total Users
                                 </div>
                                 <div class="h4 mb-0 font-weight-bold text-white animate-count-up">
-                                    {{ number_format($totalPlayers) }}
+                                    {{ number_format($totalUsers) }}
                                 </div>
                                 <div class="text-xs text-white mt-1 opacity-80">
                                     <span class="status-indicator info"></span> Total unique players
@@ -58,7 +58,7 @@
                                     Gaming Sessions
                                 </div>
                                 <div class="h4 mb-0 font-weight-bold text-white animate-count-up">
-                                    {{ number_format($totalGamingSessions) }}
+{{--                                    {{ number_format($totalGamingSessions) }}--}}
                                 </div>
                                 <div class="text-xs text-white mt-1 opacity-80">
                                     <span class="status-indicator info"></span> Total gaming sessions
@@ -93,7 +93,7 @@
                                     <div class="col-4 text-center border-end">
                                         <div class="text-xs opacity-80">Facebook</div>
                                         <div class="h5 mb-0 font-weight-bold animate-count-up">
-                                            {{ number_format($totalShareFacebook) }}
+{{--                                            {{ number_format($totalShareFacebook) }}--}}
                                         </div>
                                     </div>
 
@@ -101,7 +101,7 @@
                                     <div class="col-4 text-center border-end">
                                         <div class="text-xs opacity-80">Instagram</div>
                                         <div class="h5 mb-0 font-weight-bold animate-count-up">
-                                            {{ number_format($totalShareInstagram) }}
+{{--                                            {{ number_format($totalShareInstagram) }}--}}
                                         </div>
                                     </div>
 
@@ -109,7 +109,7 @@
                                     <div class="col-4 text-center">
                                         <div class="text-xs opacity-80">Save</div>
                                         <div class="h5 mb-0 font-weight-bold animate-count-up">
-                                            {{ number_format($totalSave) }}
+{{--                                            {{ number_format($totalSave) }}--}}
                                         </div>
                                     </div>
                                 </div>
