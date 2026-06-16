@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/{id}/profile', [UserController::class, 'showProfile'])->name('users.profile');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
     Route::patch('/settings', [SettingController::class, 'update'])->name('setting.update');

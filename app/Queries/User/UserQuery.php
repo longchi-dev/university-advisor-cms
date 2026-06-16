@@ -10,6 +10,7 @@ class UserQuery
     public function __construct(
         public int $page,
         public int $perPage,
+        public ?string $id,
         public ?string $userType = null,
         public ?array $emails = [],
         public ?string $fromDate = null,

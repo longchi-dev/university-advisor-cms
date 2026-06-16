@@ -94,7 +94,11 @@
                         @foreach($users as $key => $user)
                             <tr>
                                 <td>{{ $users->firstItem() + $key }}</td>
-                                <td>{{ $user['name'] }}</td>
+                                <td>
+                                    <a href="{{ route('users.profile', $user['id']) }}" class="fw-bold text-decoration-none text-primary">
+                                        {{ $user['name'] }}
+                                    </a>
+                                </td>
                                 <td>{{ $user['email'] }}</td>
                                 <td>{{ $user['user_type'] }}</td>
                                 <td>{{ $user['last_login_ip'] }}</td>

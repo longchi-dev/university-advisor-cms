@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Queries\User\UserHandler;
 use App\Queries\User\UserQuery;
 use Carbon\Carbon;
@@ -30,6 +31,7 @@ class UserController extends Controller
         $userQuery = new UserQuery(
             page: $page,
             perPage: $perPage,
+            id: null,
             userType: $userType,
             emails: $emails,
             fromDate: $fromDateCarbon->toDateString(),
@@ -44,5 +46,33 @@ class UserController extends Controller
         $data['toDate'] = $toDate;
 
         return view('users.index', $data);
+    }
+
+    public function showProfile(Request $request): View
+    {
+        $data = [];
+        $userId = $request->route('id');
+
+        $userQuery = new UserQuery(
+            page: 1,
+            perPage: 1,
+            id: $userId,
+            userType: null,
+            emails: [],
+            fromDate: null,
+            toDate: null
+        );
+
+        $usersPaginator = app(UserHandler::class)->execute($userQuery);
+
+        $user = $usersPaginator->first();
+
+        if (!$user) {
+            abort(404, 'User không tồn tại');
+        }
+
+        $data['user'] = $user;
+
+        return view('users.profile', $data);
     }
 }
