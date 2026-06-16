@@ -20,6 +20,7 @@ class UserHandler
     {
         $userQuery = User::query()
             ->with('profile')
+            ->whereNot('email', 'admin@gmail.com')
             ->orderByDesc('created_at');
 
         if (!empty($query->id)) {
