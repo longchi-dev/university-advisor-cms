@@ -65,6 +65,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('data-advisor.index') }}">
+                    <i class="fa fa-refresh"></i>
+                    <span class="menu-title">Dữ liệu tuyển sinh</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('llm-log.index') }}">
                     <i class="fa fa-refresh"></i>
                     <span class="menu-title">LLM Log</span>
@@ -128,10 +134,10 @@
 <footer class="footer">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <span class="text-muted">Copyright © 2025 {{ config('app.brand_name', 'CMS') }}</span>
+            <span class="text-muted">Copyright © 2026 {{ config('app.brand_name', 'CMS') }}</span>
         </div>
         <div>
-            <span class="text-muted"><i class="mdi mdi-code-tags me-1"></i>Developed by Marvy Co.</span>
+            <span class="text-muted"><i class="mdi mdi-code-tags me-1"></i>Developed by longchi-dev</span>
         </div>
     </div>
 </footer>

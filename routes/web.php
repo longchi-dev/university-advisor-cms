@@ -2,6 +2,7 @@
 
 use App\Enums\UserRoleEnum;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataAdvisorController;
 use App\Http\Controllers\LLMKeyController;
 use App\Http\Controllers\LlmLogController;
 use App\Http\Controllers\GamingSessionController;
@@ -23,8 +24,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');
     Route::patch('/settings', [SettingController::class, 'update'])->name('setting.update');
 
-//    Route::resource('prompt-randoms', PromptRandomController::class);
-//
+    Route::get('/data-advisor', [DataAdvisorController::class, 'index'])->name('data-advisor.index');
+
     Route::get('/llm-log', [LlmLogController::class, 'index'])->name('llm-log.index');
     Route::resource('/llm-keys', LLMKeyController::class);
 
