@@ -148,6 +148,7 @@
 <script src="{{asset('assets/vendors/flot/jquery.flot.pie.js')}}"></script>
 <script src="{{asset('assets/js/jquery.cookie.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/vendors/chart.js/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
 <script src="{{asset('assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 
 <!-- inject:js -->
