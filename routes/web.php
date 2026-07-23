@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\UserRoleEnum;
+use App\Http\Controllers\CrawlDataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataAdvisorController;
 use App\Http\Controllers\LLMKeyController;
@@ -28,6 +29,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/llm-log', [LlmLogController::class, 'index'])->name('llm-log.index');
     Route::resource('/llm-keys', LLMKeyController::class);
+
+    Route::get('/crawl-data', [CrawlDataController::class, 'index'])->name('crawl-data.index');
+    Route::post('/crawl-data/crawl', [CrawlDataController::class, 'crawl'])->name('crawl-data.crawl');
+    Route::get('/crawl-data/status/{jobId}', [CrawlDataController::class, 'crawlStatus'])->name('crawl-data.status');
+
+    Route::get('/setting', [SettingController::class, 'index'])->name('crawl-data.index');
+    Route::patch('/setting', [SettingController::class, 'update'])->name('setting.update');
 
 //    Route::middleware('role:' .UserRoleEnum::SETTING->value)->group(function () {
 //        Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');

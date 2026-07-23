@@ -66,7 +66,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('data-advisor.index') }}">
-                    <i class="fa fa-refresh"></i>
+                    <i class="fa fa-database"></i>
                     <span class="menu-title">Dữ liệu tuyển sinh</span>
                 </a>
             </li>
@@ -74,6 +74,21 @@
                 <a class="nav-link" href="{{ route('llm-log.index') }}">
                     <i class="fa fa-refresh"></i>
                     <span class="menu-title">LLM Log</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider my-3">
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('crawl-data.index') }}">
+                    <i class="fa fa-cloud-download"></i>
+                    <span class="menu-title">Thu thập dữ liệu</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('setting.index') }}">
+                    <i class="fa fa-cog"></i>
+                    <span class="menu-title">Cài đặt hệ thống</span>
                 </a>
             </li>
 {{--            <li class="nav-item">--}}

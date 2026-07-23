@@ -21,6 +21,7 @@ class UserHandler
         $userQuery = User::query()
             ->with('profile')
             ->whereNot('email', 'admin@gmail.com')
+            ->where('email', 'not like', 'guest_%')
             ->orderByDesc('created_at');
 
         if (!empty($query->id)) {
