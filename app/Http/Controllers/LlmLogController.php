@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\AI\AILogPrompt;
-use App\Models\LlmLog;
 use App\Queries\AI\LlmLogHandler;
 use App\Queries\AI\LlmLogQuery;
 use Illuminate\Http\Request;
@@ -25,11 +24,25 @@ class LlmLogController
         $fromDateCarbon = Carbon::parse($fromDate);
         $toDateCarbon = Carbon::parse($toDate);
 
+        $data['models'] = AILogPrompt::query()
+            ->select('model')
+            ->distinct()
+            ->orderBy('model')
+            ->pluck('model');
+
+        $data['promptTypes'] = AILogPrompt::query()
+            ->select('prompt_type')
+            ->distinct()
+            ->orderBy('prompt_type')
+            ->pluck('prompt_type');
+
         $llmLogQuery = new LlmLogQuery(
             page: $page,
             perPage: $perPage,
             fromDate: $fromDateCarbon->toDateString(),
             toDate: $toDateCarbon->toDateString(),
+            model: $request->get('model'),
+            promptType: $request->get('prompt_type'),
         );
 
         $llmLogs = app(LlmLogHandler::class)->execute($llmLogQuery);

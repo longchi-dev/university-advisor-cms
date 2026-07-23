@@ -12,6 +12,8 @@ class LlmLogQuery
         public int $perPage,
         public ?string $fromDate = null,
         public ?string $toDate = null,
+        public ?string $model = null,
+        public ?string $promptType = null,
     ) {
 
     }

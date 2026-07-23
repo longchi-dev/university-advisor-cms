@@ -58,13 +58,15 @@
 
                         <div class="mb-3">
                             <strong>Năm thu thập</strong>
-                            <div class="text-muted">2025</div>
+                            <div class="text-muted" id="crawlYear">
+                                {{ $fromYear == $toYear ? $fromYear : $fromYear . ' - ' . $toYear }}
+                            </div>
                         </div>
 
                         <div>
                             <strong>Đầu ra</strong>
-                            <div class="text-muted">
-                                storage/app/diem_chuan.json
+                            <div id="downloadContainer" class="text-muted">
+                                Chưa có
                             </div>
                         </div>
                     </div>
@@ -126,10 +128,20 @@
         let polling = null;
 
         function startCrawl() {
-
             $('#crawlBtn').prop('disabled', true);
 
             $('#crawlLog').text('Đang tạo job...\n');
+
+            let fromYear = $('[name=from_year]').val();
+            let toYear = $('[name=to_year]').val();
+
+            $('#crawlYear').text(
+                fromYear === toYear
+                    ? fromYear
+                    : `${fromYear} - ${toYear}`
+            );
+
+            $('#downloadContainer').text('Đang chờ...');
 
             $.post("{{ route('crawl-data.crawl') }}", {
                 _token: "{{ csrf_token() }}",
@@ -184,6 +196,14 @@
                         '\n\nHoàn thành.\n' +
                         'Tổng bản ghi: ' + job.total_records
                     );
+
+                    $('#downloadContainer').html(`
+                        <a href="${job.download_url}"
+                           class="btn btn-success btn-sm mt-2">
+                            <i class="fa fa-download"></i>
+                            Tải file JSON
+                        </a>
+                    `);
                 }
 
                 if (job.status === 'failed') {
@@ -193,6 +213,7 @@
                     $('#crawlBtn').prop('disabled', false);
 
                     $('#crawlLog').append('\n\nThất bại.');
+                    $('#downloadContainer').text('Không có');
                 }
 
             }).fail(function () {

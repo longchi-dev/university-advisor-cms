@@ -25,7 +25,7 @@ class ImportDataController extends Controller
             'file' => [
                 'required',
                 'file',
-                'mimes:json'
+                'extensions:json',
             ]
         ]);
 

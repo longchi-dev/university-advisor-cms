@@ -35,14 +35,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/crawl-data', [CrawlDataController::class, 'index'])->name('crawl-data.index');
     Route::post('/crawl-data/crawl', [CrawlDataController::class, 'crawl'])->name('crawl-data.crawl');
     Route::get('/crawl-data/status/{jobId}', [CrawlDataController::class, 'crawlStatus'])->name('crawl-data.status');
+    Route::get('/crawl-data/download/{jobId}', [CrawlDataController::class, 'download'])->name('crawl-data.download');
 
     Route::get('/import-data', [ImportDataController::class, 'index'])->name('import-data.index');
     Route::post('/import-data/import', [ImportDataController::class, 'import'])->name('import-data.import');
     Route::get('/import-data/status/{jobId}', [ImportDataController::class, 'importStatus'])->name('import-data.status');
 
     Route::get('/embedding', [EmbeddingController::class, 'index'])->name('embedding.index');
-    Route::post('/embedding/generate', [EmbeddingController::class, 'import'])->name('embedding.generate');
-    Route::get('/embedding/status/{jobId}', [EmbeddingController::class, 'importStatus'])->name('embedding.status');
+    Route::post('/embedding/generate', [EmbeddingController::class, 'generate'])->name('embedding.generate');
+    Route::get('/embedding/status/{jobId}', [EmbeddingController::class, 'generateStatus'])->name('embedding.status');
 
     Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     Route::patch('/setting', [SettingController::class, 'update'])->name('setting.update');

@@ -8,6 +8,24 @@
                         <h2 class="m-0">LLM Logs</h2>
                         <div class="d-flex align-items-center gap-2">
                             <form id="filter-llm-logs" method="GET" class="d-flex gap-2 align-items-center mb-0 w-100">
+                                <select name="model" class="form-control w-auto" style="min-width: 180px;">
+                                    <option value="">Tất cả model</option>
+                                    @foreach($models as $model)
+                                        <option value="{{ $model }}" @selected(request('model') == $model)>
+                                            {{ $model }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <select name="prompt_type" class="form-control w-auto" style="min-width: 180px;">
+                                    <option value="">Tất cả prompt</option>
+                                    @foreach($promptTypes as $promptType)
+                                        <option value="{{ $promptType }}" @selected(request('prompt_type') == $promptType)>
+                                            {{ $promptType }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="form-group d-flex gap-2 flex-fill mb-0">
                                         <input type="text" name="from_date" id="from_date"

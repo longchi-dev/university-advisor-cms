@@ -43,7 +43,7 @@ class EmbeddingController extends Controller
     }
 
 
-    public function status(
+    public function generateStatus(
         string $jobId
     ): JsonResponse {
 

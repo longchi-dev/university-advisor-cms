@@ -24,6 +24,14 @@ class LlmLogHandler
             ->whereBetween(DB::raw('DATE(created_at)'), [$query->fromDate, $query->toDate])
             ->orderByDesc('created_at');
 
+        if ($query->model) {
+            $aiLogPromptQuery->where('model', $query->model);
+        }
+
+        if ($query->promptType) {
+            $aiLogPromptQuery->where('prompt_type', $query->promptType);
+        }
+
         $paginator = $aiLogPromptQuery->paginate($query->perPage, ['*'], 'page', $query->page);
 
         $paginator->getCollection()->transform(function (AILogPrompt $aiLogPrompt) {

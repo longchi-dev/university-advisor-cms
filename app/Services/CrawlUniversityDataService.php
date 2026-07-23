@@ -41,7 +41,7 @@ class CrawlUniversityDataService
 
         return [
             'output' => $process->getOutput(),
-            'file'   => storage_path('app/diem_chuan.json'),
+            'file' => 'diem_chuan.json',
         ];
     }
 }

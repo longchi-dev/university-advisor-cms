@@ -488,9 +488,8 @@
                                     {{ $index + 1 }}
                                 </td>
                                 <td>
-                                    {{ $question['question'] }}
+                                    {{ \Illuminate\Support\Str::limit($question['question'], 80) }}
                                 </td>
-
                                 <td class="text-end fw-bold">
                                     {{ $question['total'] }}
                                 </td>
