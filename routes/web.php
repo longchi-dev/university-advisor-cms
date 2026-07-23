@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/crawl-data/crawl', [CrawlDataController::class, 'crawl'])->name('crawl-data.crawl');
     Route::get('/crawl-data/status/{jobId}', [CrawlDataController::class, 'crawlStatus'])->name('crawl-data.status');
 
-    Route::get('/setting', [SettingController::class, 'index'])->name('crawl-data.index');
+    Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     Route::patch('/setting', [SettingController::class, 'update'])->name('setting.update');
 
 //    Route::middleware('role:' .UserRoleEnum::SETTING->value)->group(function () {
