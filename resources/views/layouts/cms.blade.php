@@ -58,26 +58,26 @@
                     <span class="menu-title">Thống kê</span>
                 </a>
             </li>
+
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('users.index') }}">
                     <i class="fa fa-user"></i>
                     <span class="menu-title">Người dùng</span>
                 </a>
             </li>
+
+
+            <hr class="sidebar-divider my-3">
+
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('data-advisor.index') }}">
                     <i class="fa fa-database"></i>
                     <span class="menu-title">Dữ liệu tuyển sinh</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('llm-log.index') }}">
-                    <i class="fa fa-refresh"></i>
-                    <span class="menu-title">LLM Log</span>
-                </a>
-            </li>
 
-            <hr class="sidebar-divider my-3">
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('crawl-data.index') }}">
@@ -85,18 +85,41 @@
                     <span class="menu-title">Thu thập dữ liệu</span>
                 </a>
             </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('import-data.index') }}">
+                    <i class="fa fa-upload"></i>
+                    <span class="menu-title">Import dữ liệu</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('embedding.index') }}">
+                    <i class="fa fa-magic"></i>
+                    <span class="menu-title">Tạo Embedding</span>
+                </a>
+            </li>
+
+
+            <hr class="sidebar-divider my-3">
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('llm-log.index') }}">
+                    <i class="fa fa-refresh"></i>
+                    <span class="menu-title">LLM Log</span>
+                </a>
+            </li>
+
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('setting.index') }}">
                     <i class="fa fa-cog"></i>
                     <span class="menu-title">Cài đặt hệ thống</span>
                 </a>
             </li>
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link" href="{{ route('setting.index') }}">--}}
-{{--                    <i class="fa fa-cog"></i>--}}
-{{--                    <span class="menu-title">Cài đặt</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
         </ul>
     </nav>
 
