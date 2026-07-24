@@ -9,6 +9,7 @@ use App\Http\Controllers\ImportDataController;
 use App\Http\Controllers\LLMKeyController;
 use App\Http\Controllers\LlmLogController;
 use App\Http\Controllers\GamingSessionController;
+use App\Http\Controllers\SettingPromptController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     Route::patch('/setting', [SettingController::class, 'update'])->name('setting.update');
+
+    Route::get('/setting-prompt', [SettingPromptController::class, 'index'])->name('setting-prompt.index');
+    Route::patch('/setting-prompt/{prompt}', [SettingPromptController::class, 'update'])->name('setting-prompt.update');
 
 //    Route::middleware('role:' .UserRoleEnum::SETTING->value)->group(function () {
 //        Route::get('/settings', [SettingController::class, 'index'])->name('setting.index');

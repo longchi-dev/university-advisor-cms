@@ -120,6 +120,13 @@
                     <span class="menu-title">Cài đặt hệ thống</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('setting-prompt.index') }}">
+                    <i class="fa fa-cog"></i>
+                    <span class="menu-title">Cài đặt system prompt</span>
+                </a>
+            </li>
         </ul>
     </nav>
 
