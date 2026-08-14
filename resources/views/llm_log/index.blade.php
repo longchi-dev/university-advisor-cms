@@ -59,6 +59,7 @@
                             <th>Tokens (I/O/T)</th>
                             <th>Thời gian chạy</th>
                             <th>Trạng thái</th>
+                            <th>Chế độ & RAG Docs</th>
                             <th>Ngày tạo</th>
                         </tr>
                         </thead>
@@ -105,7 +106,6 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    {{-- Kiểm tra nếu là mảng JSON (chứa role, content...) thì format đẹp, ngược lại in chuỗi thường --}}
                                                     <pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; white-space: pre-wrap;">@if(is_array($llmLog['prompt'])){{ json_encode($llmLog['prompt'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}@else{{ $llmLog['prompt'] }}@endif</pre>
                                                 </div>
                                             </div>
@@ -145,7 +145,6 @@
                                                         </div>
                                                     @endif
 
-                                                    {{-- Sử dụng thẻ <pre> kết hợp định dạng JSON đẹp mắt --}}
                                                     <pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; white-space: pre-wrap;">@if(is_array($llmLog['response'])){{ json_encode($llmLog['response'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}@else{{ $llmLog['response'] }}@endif</pre>
                                                 </div>
                                             </div>
@@ -183,6 +182,49 @@
                                     @endif
                                 </td>
 
+                                {{-- Chế độ & RAG Docs + Modal RAG tương ứng --}}
+                                <td>
+                                    @if(!empty($llmLog['rag_documents']))
+                                        <span class="badge bg-success mb-1">RAG ({{ count($llmLog['rag_documents']) }} docs)</span><br>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-info p-0 px-1 show_modal"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#ragModal{{ $modalId }}">
+                                            Xem tài liệu cung cấp
+                                        </button>
+
+                                        {{-- MODAL HIỂN THỊ TÀI LIỆU RAG --}}
+                                        <div class="modal fade" id="ragModal{{ $modalId }}" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-light">
+                                                        <h5 class="modal-title">Tài liệu RAG cung cấp cho LLM (#{{ $modalId }})</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body bg-dark text-light">
+                                                        <p class="text-info">Tổng số tài liệu trích xuất: <strong>{{ count($llmLog['rag_documents']) }}</strong></p>
+                                                        <hr class="border-secondary">
+
+                                                        @foreach($llmLog['rag_documents'] as $docIndex => $doc)
+                                                            <div class="card mb-3 bg-secondary text-light border-0">
+                                                                <div class="card-header bg-dark d-flex justify-content-between align-items-center py-1">
+                                                                    <span><strong>#{{ $docIndex + 1 }}</strong> | Score/RRF: <span class="badge bg-warning text-dark">{{ $doc['score'] ?? 'N/A' }}</span></span>
+                                                                    <small class="text-muted">ID: {{ $doc['id'] ?? ($doc['chunk_id'] ?? 'N/A') }}</small>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <pre style="background: #1e1e1e; color: #d4d4d4; padding: 10px; border-radius: 4px; white-space: pre-wrap; margin: 0;">{{ is_array($doc) ? json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $doc }}</pre>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <span class="badge bg-secondary">Normal / Non-RAG</span>
+                                    @endif
+                                </td>
+
                                 {{-- Ngày tạo --}}
                                 <td>
                                     <small>{{ $llmLog['created_at'] ?? '-' }}</small>
@@ -190,7 +232,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="10" class="text-center text-muted">Không tìm thấy bản ghi log nào trong khoảng thời gian này.</td>
+                                <td colspan="11" class="text-center text-muted">Không tìm thấy bản ghi log nào trong khoảng thời gian này.</td>
                             </tr>
                         @endforelse
                         </tbody>
