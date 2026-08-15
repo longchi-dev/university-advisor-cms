@@ -8,20 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('import_jobs')) {
-            // 1. Mở rộng cột name và slug trong bảng majors thành TEXT để chứa các tên siêu dài
-            Schema::table('majors', function (Blueprint $table) {
-                $table->text('name')->change();
-                $table->text('slug')->change();
-            });
+        // 1. Mở rộng cột name và slug
+        Schema::table('majors', function (Blueprint $table) {
+            $table->text('name')->change();
+            $table->text('slug')->change();
+        });
 
-            // 2. Thêm cột finished_at cho bảng import_jobs nếu chưa có
-            Schema::table('import_jobs', function (Blueprint $table) {
-                if (!Schema::hasColumn('import_jobs', 'finished_at')) {
-                    $table->timestamp('finished_at')->nullable();
-                }
-            });
-        }
+        // 2. Thêm cột finished_at
+        Schema::table('import_jobs', function (Blueprint $table) {
+            if (!Schema::hasColumn('import_jobs', 'finished_at')) {
+                $table->timestamp('finished_at')->nullable();
+            }
+        });
     }
 
     public function down(): void

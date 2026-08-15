@@ -12,18 +12,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('import_jobs', function (Blueprint $table) {
-            $table->id();
+        if (!Schema::hasTable('import_jobs')) {
+            Schema::create('import_jobs', function (Blueprint $table) {
+                $table->id();
 
-            $table->string('job_id')->unique();
-            $table->string('type')->nullable();
-            $table->integer('total')->default(0);
-            $table->integer('processed')->default(0);
-            $table->enum('status', JobStatus::values())->default(JobStatus::PENDING->value);
-            $table->string('file_path')->nullable();
-            $table->text('error')->nullable();
-            $table->timestamps();
-        });
+                $table->string('job_id')->unique();
+                $table->string('type')->nullable();
+                $table->integer('total')->default(0);
+                $table->integer('processed')->default(0);
+                $table->enum('status', JobStatus::values())->default(JobStatus::PENDING->value);
+                $table->string('file_path')->nullable();
+                $table->text('error')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
