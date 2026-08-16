@@ -65,6 +65,8 @@ class LlmLogHandler
                 'error_message' => $aiLogPrompt->error_message,
                 'logged_at' => $aiLogPrompt->logged_at?->format('d-m-Y H:i:s') ?? null,
                 'created_at' => $aiLogPrompt->created_at?->format('d-m-Y H:i:s') ?? null,
+
+                'rag_documents' => $aiLogPrompt->rag_documents,
             ];
         });
 

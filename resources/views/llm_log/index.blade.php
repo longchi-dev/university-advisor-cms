@@ -184,8 +184,15 @@
 
                                 {{-- Chế độ & RAG Docs + Modal RAG tương ứng --}}
                                 <td>
-                                    @if(!empty($llmLog['rag_documents']))
-                                        <span class="badge bg-success mb-1">RAG ({{ count($llmLog['rag_documents']) }} docs)</span><br>
+                                    @php
+                                        $ragDocs = $llmLog['rag_documents'] ?? null;
+                                        if (is_string($ragDocs)) {
+                                            $ragDocs = json_decode($ragDocs, true);
+                                        }
+                                    @endphp
+
+                                    @if(!empty($ragDocs))
+                                        <span class="badge bg-success mb-1">RAG ({{ count($ragDocs) }} docs)</span><br>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-info p-0 px-1 show_modal"
                                                 data-bs-toggle="modal"
@@ -202,13 +209,13 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                     </div>
                                                     <div class="modal-body bg-dark text-light">
-                                                        <p class="text-info">Tổng số tài liệu trích xuất: <strong>{{ count($llmLog['rag_documents']) }}</strong></p>
+                                                        <p class="text-info">Tổng số tài liệu trích xuất: <strong>{{ count($ragDocs) }}</strong></p>
                                                         <hr class="border-secondary">
 
-                                                        @foreach($llmLog['rag_documents'] as $docIndex => $doc)
+                                                        @foreach($ragDocs as $docIndex => $doc)
                                                             <div class="card mb-3 bg-secondary text-light border-0">
                                                                 <div class="card-header bg-dark d-flex justify-content-between align-items-center py-1">
-                                                                    <span><strong>#{{ $docIndex + 1 }}</strong> | Score/RRF: <span class="badge bg-warning text-dark">{{ $doc['score'] ?? 'N/A' }}</span></span>
+                                                                    <span><strong>#{{ $docIndex + 1 }}</strong> | Score/RRF: <span class="badge bg-warning text-dark">{{ $doc['final_score'] ?? ($doc['score'] ?? 'N/A') }}</span></span>
                                                                     <small class="text-muted">ID: {{ $doc['id'] ?? ($doc['chunk_id'] ?? 'N/A') }}</small>
                                                                 </div>
                                                                 <div class="card-body">
