@@ -112,18 +112,20 @@
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-xs font-weight-bold text-white text-uppercase mb-1 opacity-90">
-                                    Tài liệu
+                                    Kho Dữ Liệu AI (Vector DB)
                                 </div>
-                                <div class="h4 mb-0 font-weight-bold text-white animate-count-up">
-                                    {{ number_format($totalDocuments) }}
+                                <div class="h4 mb-0 font-weight-bold text-white">
+                                    <span class="animate-count-up">{{ number_format($totalDocuments) }}</span>
+                                    <span style="font-size: 0.5em; font-weight: normal; opacity: 0.9;">chunks</span>
                                 </div>
-                                <div class="text-xs text-white mt-1 opacity-80">
-                                    <span class="status-indicator info"></span> Tổng số tài liệu trong kho tri thức
+                                <div class="text-xs text-white mt-1 opacity-80"
+                                     title="{{ number_format($scoreVectors ?? 0) }} vector điểm & {{ number_format($knowledgeVectors ?? 0) }} vector bài báo">
+                                    <span class="status-indicator info"></span> Trích xuất từ {{ number_format(($totalScores ?? 0) + ($totalKnowledge ?? 0)) }} dữ liệu gốc
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div class="icon-circle bg-white bg-opacity-20">
-                                    <span class="icon-symbol">📄</span>
+                                    <span class="icon-symbol">🧠</span>
                                 </div>
                             </div>
                         </div>
@@ -220,24 +222,54 @@
                     </div>
                 </div>
             </div>
+{{--            <div class="col-xl-3 col-lg-6 col-md-6 mb-4">--}}
+{{--                <div class="card border-0 shadow-lg h-100 card-hover gradient-card-red">--}}
+{{--                    <div class="card-body p-4 position-relative overflow-hidden">--}}
+{{--                        <div class="row align-items-center">--}}
+{{--                            <div class="col">--}}
+{{--                                <div class="text-xs font-weight-bold text-white text-uppercase mb-1 opacity-90">--}}
+{{--                                    Câu hỏi hôm nay--}}
+{{--                                </div>--}}
+{{--                                <div class="h4 mb-0 font-weight-bold text-white animate-count-up">--}}
+{{--                                    {{ number_format($todayQuestions) }}--}}
+{{--                                </div>--}}
+{{--                                <div class="text-xs text-white mt-1 opacity-80">--}}
+{{--                                    <span class="status-indicator info"></span> Số câu hỏi trong ngày--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-auto">--}}
+{{--                                <div class="icon-circle bg-white bg-opacity-20">--}}
+{{--                                    <span class="icon-symbol">❓</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="floating-shapes">--}}
+{{--                            <div class="shape shape-1"></div>--}}
+{{--                            <div class="shape shape-2"></div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+            <!-- Card Tri thức Crawl -->
             <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
-                <div class="card border-0 shadow-lg h-100 card-hover gradient-card-red">
+                <div class="card border-0 shadow-lg h-100 card-hover" style="background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);">
                     <div class="card-body p-4 position-relative overflow-hidden">
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="text-xs font-weight-bold text-white text-uppercase mb-1 opacity-90">
-                                    Câu hỏi hôm nay
+                                    Bài viết / Tri thức
                                 </div>
                                 <div class="h4 mb-0 font-weight-bold text-white animate-count-up">
-                                    {{ number_format($todayQuestions) }}
+                                    {{ number_format($totalKnowledge ?? 0) }}
                                 </div>
                                 <div class="text-xs text-white mt-1 opacity-80">
-                                    <span class="status-indicator info"></span> Số câu hỏi trong ngày
+                                    <span class="status-indicator info"></span> Bài báo Crawl
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div class="icon-circle bg-white bg-opacity-20">
-                                    <span class="icon-symbol">❓</span>
+                                    <span class="icon-symbol">📰</span>
                                 </div>
                             </div>
                         </div>

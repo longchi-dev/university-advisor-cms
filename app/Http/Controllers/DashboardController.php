@@ -44,8 +44,18 @@ class DashboardController extends Controller
         // Tổng tin nhắn
         $data['totalMessages'] = ChatMessage::query()->count();
 
-        // Tổng tài liệu RAG
-        $data['totalDocuments'] = UniversityEmbedding::query()->count();
+        // Tổng số Vector của Điểm chuẩn
+        $scoreVectors = UniversityEmbedding::query()->count();
+
+        // Tổng số Vector của Bài báo (Crawl)
+        $knowledgeVectors = DB::table('university_knowledge_embeddings')->count();
+
+        // Tổng tài liệu RAG = Vector Điểm chuẩn + Vector Bài viết
+        $data['totalDocuments'] = $scoreVectors + $knowledgeVectors;
+
+        // Truyền thêm 2 biến lẻ này ra View để lỡ bạn muốn hover vào xem chi tiết
+        $data['scoreVectors'] = $scoreVectors;
+        $data['knowledgeVectors'] = $knowledgeVectors;
 
         // Tổng trường
         $data['totalSchools'] = School::query()->count();
@@ -224,6 +234,8 @@ class DashboardController extends Controller
             ->groupBy('intent')
             ->orderByDesc('total')
             ->get();
+
+        $data['totalKnowledge'] = DB::table('university_knowledge')->count();
 
         return view('dashboard', $data);
     }
