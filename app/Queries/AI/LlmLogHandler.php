@@ -32,6 +32,14 @@ class LlmLogHandler
             $aiLogPromptQuery->where('prompt_type', $query->promptType);
         }
 
+        if ($query->hasRag !== null && $query->hasRag !== '') {
+            if ($query->hasRag === '1') {
+                $aiLogPromptQuery->whereNotNull('rag_documents');
+            } elseif ($query->hasRag === '0') {
+                $aiLogPromptQuery->whereNull('rag_documents');
+            }
+        }
+
         $paginator = $aiLogPromptQuery->paginate($query->perPage, ['*'], 'page', $query->page);
 
         $paginator->getCollection()->transform(function (AILogPrompt $aiLogPrompt) {

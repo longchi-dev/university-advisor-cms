@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Carbon\Carbon;
 
-class LlmLogController
+class LlmLogController extends Controller
 {
     public function index(Request $request): View
     {
@@ -36,6 +36,7 @@ class LlmLogController
             ->orderBy('prompt_type')
             ->pluck('prompt_type');
 
+        // Truyền thêm param hasRag vào LlmLogQuery
         $llmLogQuery = new LlmLogQuery(
             page: $page,
             perPage: $perPage,
@@ -43,6 +44,7 @@ class LlmLogController
             toDate: $toDateCarbon->toDateString(),
             model: $request->get('model'),
             promptType: $request->get('prompt_type'),
+            hasRag: $request->get('has_rag') // Thêm dòng này
         );
 
         $llmLogs = app(LlmLogHandler::class)->execute($llmLogQuery);

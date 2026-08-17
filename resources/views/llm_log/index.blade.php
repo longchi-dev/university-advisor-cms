@@ -1,4 +1,27 @@
 @extends('layouts.cms')
+
+@php
+    // Hàm hỗ trợ tự động nhận diện và làm đẹp JSON (đặt ngay đầu file)
+    if (!function_exists('formatBeautifulJson')) {
+        function formatBeautifulJson($data) {
+            if (empty($data)) return '-';
+
+            // Nếu là chuỗi, thử decode xem có phải JSON hợp lệ không
+            if (is_string($data)) {
+                $decoded = json_decode($data, true);
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $data = $decoded;
+                }
+            }
+
+            // Nếu cuối cùng là mảng/object thì format đẹp lại, không thì in nguyên bản
+            return is_array($data)
+                ? json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
+                : $data;
+        }
+    }
+@endphp
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -8,7 +31,7 @@
                         <h2 class="m-0">LLM Logs</h2>
                         <div class="d-flex align-items-center gap-2">
                             <form id="filter-llm-logs" method="GET" class="d-flex gap-2 align-items-center mb-0 w-100">
-                                <select name="model" class="form-control w-auto" style="min-width: 180px;">
+                                <select name="model" class="form-control w-auto" style="min-width: 150px;">
                                     <option value="">Tất cả model</option>
                                     @foreach($models as $model)
                                         <option value="{{ $model }}" @selected(request('model') == $model)>
@@ -17,7 +40,7 @@
                                     @endforeach
                                 </select>
 
-                                <select name="prompt_type" class="form-control w-auto" style="min-width: 180px;">
+                                <select name="prompt_type" class="form-control w-auto" style="min-width: 150px;">
                                     <option value="">Tất cả prompt</option>
                                     @foreach($promptTypes as $promptType)
                                         <option value="{{ $promptType }}" @selected(request('prompt_type') == $promptType)>
@@ -26,18 +49,25 @@
                                     @endforeach
                                 </select>
 
+                                <!-- THÊM BỘ LỌC RAG TẠI ĐÂY -->
+                                <select name="has_rag" class="form-control w-auto" style="min-width: 160px;">
+                                    <option value="">Tất cả (RAG & Non-RAG)</option>
+                                    <option value="1" @selected(request('has_rag') === '1')>Có RAG (Has RAG)</option>
+                                    <option value="0" @selected(request('has_rag') === '0')>Không RAG (Non-RAG)</option>
+                                </select>
+
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="form-group d-flex gap-2 flex-fill mb-0">
                                         <input type="text" name="from_date" id="from_date"
                                                class="form-control datepicker" placeholder="Từ ngày"
-                                               value="{{ request('from_date', $fromDate) }}">
+                                               value="{{ request('from_date', $fromDate) }}" style="min-width: 110px;">
                                         <input type="text" name="to_date" id="to_date"
                                                class="form-control datepicker" placeholder="Đến ngày"
-                                               value="{{ request('to_date', $toDate) }}">
+                                               value="{{ request('to_date', $toDate) }}" style="min-width: 110px;">
                                     </div>
 
                                     <div class="input-group-append">
-                                        <button class="btn btn-sm btn-primary" type="submit">Tìm</button>
+                                        <button class="btn btn-sm btn-primary" type="submit" style="padding: 0.45rem 1rem;">Tìm</button>
                                     </div>
                                 </div>
                             </form>
@@ -66,7 +96,6 @@
                         <tbody>
                         @forelse($llmLogs as $key => $llmLog)
                             @php
-                                // Tạo một ID độc nhất cho Modal dựa vào index vòng lặp
                                 $modalId = $llmLogs->firstItem() + $key;
                             @endphp
                             <tr>
@@ -97,7 +126,7 @@
                                         Xem chi tiết
                                     </button>
 
-                                    {{-- Modal hiển thị full Prompt --}}
+                                    {{-- Modal hiển thị full Prompt đã được làm đẹp --}}
                                     <div class="modal fade" id="promptModal{{ $modalId }}" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                             <div class="modal-content">
@@ -106,7 +135,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; white-space: pre-wrap;">@if(is_array($llmLog['prompt'])){{ json_encode($llmLog['prompt'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}@else{{ $llmLog['prompt'] }}@endif</pre>
+                                                    <pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; white-space: pre-wrap; font-family: Consolas, monospace;">{{ formatBeautifulJson($llmLog['prompt'] ?? '') }}</pre>
                                                 </div>
                                             </div>
                                         </div>
@@ -130,7 +159,7 @@
                                         Xem đầy đủ
                                     </button>
 
-                                    {{-- Modal hiển thị full Response --}}
+                                    {{-- Modal hiển thị full Response đã được làm đẹp --}}
                                     <div class="modal fade" id="responseModal{{ $modalId }}" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-scrollable">
                                             <div class="modal-content">
@@ -145,7 +174,7 @@
                                                         </div>
                                                     @endif
 
-                                                    <pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; white-space: pre-wrap;">@if(is_array($llmLog['response'])){{ json_encode($llmLog['response'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}@else{{ $llmLog['response'] }}@endif</pre>
+                                                    <pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; white-space: pre-wrap; font-family: Consolas, monospace;">{{ formatBeautifulJson($llmLog['response'] ?? '') }}</pre>
                                                 </div>
                                             </div>
                                         </div>
@@ -219,7 +248,7 @@
                                                                     <small class="text-muted">ID: {{ $doc['id'] ?? ($doc['chunk_id'] ?? 'N/A') }}</small>
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    <pre style="background: #1e1e1e; color: #d4d4d4; padding: 10px; border-radius: 4px; white-space: pre-wrap; margin: 0;">{{ is_array($doc) ? json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $doc }}</pre>
+                                                                    <pre style="background: #1e1e1e; color: #d4d4d4; padding: 10px; border-radius: 4px; white-space: pre-wrap; margin: 0; font-family: Consolas, monospace;">{{ is_array($doc) ? json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $doc }}</pre>
                                                                 </div>
                                                             </div>
                                                         @endforeach

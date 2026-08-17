@@ -14,6 +14,7 @@ class LlmLogQuery
         public ?string $toDate = null,
         public ?string $model = null,
         public ?string $promptType = null,
+        public ?string $hasRag = null
     ) {
 
     }
