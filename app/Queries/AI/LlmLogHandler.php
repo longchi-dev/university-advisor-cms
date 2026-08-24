@@ -21,6 +21,7 @@ class LlmLogHandler
     public function execute(LlmLogQuery $query): LengthAwarePaginator
     {
         $aiLogPromptQuery = AILogPrompt::query()
+            ->whereNotNull('user_id')
             ->whereBetween(DB::raw('DATE(created_at)'), [$query->fromDate, $query->toDate])
             ->orderByDesc('created_at');
 
@@ -43,9 +44,7 @@ class LlmLogHandler
         $paginator = $aiLogPromptQuery->paginate($query->perPage, ['*'], 'page', $query->page);
 
         $paginator->getCollection()->transform(function (AILogPrompt $aiLogPrompt) {
-            $user = $aiLogPrompt->user_id
-                ? app(IUserRepository::class)->findById((string) $aiLogPrompt->user_id)
-                : null;
+            $user = app(IUserRepository::class)->findById($aiLogPrompt->user_id);
 
             $responseRaw = $aiLogPrompt->response;
             $responseDecoded = json_decode($responseRaw, true);
