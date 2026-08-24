@@ -43,7 +43,9 @@ class LlmLogHandler
         $paginator = $aiLogPromptQuery->paginate($query->perPage, ['*'], 'page', $query->page);
 
         $paginator->getCollection()->transform(function (AILogPrompt $aiLogPrompt) {
-            $user = app(IUserRepository::class)->findById($aiLogPrompt->user_id);
+            $user = $aiLogPrompt->user_id
+                ? app(IUserRepository::class)->findById((string) $aiLogPrompt->user_id)
+                : null;
 
             $responseRaw = $aiLogPrompt->response;
             $responseDecoded = json_decode($responseRaw, true);
